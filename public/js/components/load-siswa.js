@@ -1,14 +1,27 @@
-var selected_paket_id = ''
+
+var selected_jadwal_ujian_id = ''
 
 $('#paket-selector').on('change', function() {
-    selected_paket_id = $(this).find(":selected").val()
+    selected_jadwal_ujian_id = $(this).find(":selected").val()
 
     var body = {
-        "test": "test text asdasd"
+        "test": "test text asdasd",
+        "jadwal_ujian_id": selected_jadwal_ujian_id
     }
 
-    GetSiswa(body)
+    GetSiswaAjax(body)
 });
+
+$('#refresh-button').on('click', () => {
+    selected_jadwal_ujian_id = $('#select-paket').find(':selected').val()
+
+    var body = {
+        "test": "test text asdasd",
+        "jadwal_ujian_id": selected_jadwal_ujian_id
+    }
+
+    GetSiswaAjax(body)
+})
 
 
 const GetSiswa = async (body) => {
@@ -25,5 +38,88 @@ const GetSiswa = async (body) => {
     })
     .catch((err) => {
         console.log(err)
+    })
+}
+
+const GetSiswaAjax = async (body) => {
+
+    var ujian_datatable = $('#ujian_siswa_table').DataTable({
+        retrieve: true
+    })
+
+    $.ajax({
+        type: 'GET',
+        contentType: "application/json",
+        dataType: "json",
+        url: 'http://127.0.0.1:8000/api/is-any-onprogress',
+        success: (data) => {
+
+            // console.log(data.data.on_progress)
+
+            if (data.data.on_progress) {
+                ujian_datatable.clear()
+                ujian_datatable.draw()
+
+                $('#koreksi-alert').hide();
+                $('#koreksi-alert').html('Sedang melakukan koreksi pada ' + data.data.nama)
+                setTimeout(function() {
+                    $('#koreksi-alert').show();
+                }, 200);
+
+                var row = document.createElement("tr");
+                var msg = document.createElement('td');
+                msg.innerHTML = 'Tidak bisa melihat data saat sedang melakukan koreksi ///'
+                msg.setAttribute("colspan", "100")
+                msg.setAttribute('style', 'text-align:center;')
+                row.append(msg)
+                $('#ujian_siswa_table').append(row);
+            } else {
+                $('#koreksi-alert').hide();
+                UpdateTable(body)
+            }
+
+        },
+        error: (err) => {
+            console.log(err)
+        }
+    })
+}
+
+const UpdateTable = async (body) => {
+
+    var ujian_datatable = $('#ujian_siswa_table').DataTable({
+        retrieve: true
+    })
+
+    ujian_datatable.clear()
+    ujian_datatable.draw()
+
+    var row = document.createElement("tr");
+    var msg = document.createElement('td');
+    msg.innerHTML = 'Loading ///'
+    msg.setAttribute("colspan", "100")
+    msg.setAttribute('style', 'text-align:center;')
+    row.append(msg)
+    $('#ujian_siswa_table').append(row);
+
+    // -----
+
+    $.ajax({
+        type: 'POST',
+        data: JSON.stringify(body),
+        contentType: "application/json",
+        dataType: "json",
+        url: 'http://127.0.0.1:8000/api/siswa-paket',
+        success: (data) => {
+            // console.log(JSON.parse(data.data[0].random_soal))
+            // LoadUjianSiswaTableData(data.data)
+
+            ujian_datatable.rows.add(data.data)
+            ujian_datatable.draw()
+
+        },
+        error: (err) => {
+            console.log(err)
+        }
     })
 }
