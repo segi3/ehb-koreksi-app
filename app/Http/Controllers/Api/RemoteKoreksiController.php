@@ -22,7 +22,7 @@ class RemoteKoreksiController extends Controller
 
     public function StartRemoteKoreksi($jadwal_ujian_id) {
 
-        $stateData = StateKoreksi::create([
+        $stateData = StateKoreksi::updateOrCreate([
             'jadwal_ujian_id' => $jadwal_ujian_id,
             'state' => StatusKoreksi::on_progress()->value
         ]);

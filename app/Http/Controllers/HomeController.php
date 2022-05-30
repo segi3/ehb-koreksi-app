@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Models\ViewHasilUjian;
 class HomeController extends Controller
 {
     /**
@@ -25,4 +26,17 @@ class HomeController extends Controller
     {
         return view('home');
     }
+
+    public function ShowKoreksi() {
+        return view('koreksi');
+    }
+
+    public function ShowHasilBak() {
+        return view('hasil');
+    }
+
+    public function ShowHasilDev() {
+        return view('hasil');
+    }
 }
+

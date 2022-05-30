@@ -43,17 +43,28 @@ class JadwalUjianController extends Controller
 
         $latest = StateKoreksi::GetLatestKoreksiAll();
 
-        if($latest->state == StatusKoreksi::on_progress()->value) {
-            $resp['on_progress'] = true;
+        if ($latest != null) {
+            if ($latest->state == StatusKoreksi::on_progress()->value) {
+                $resp['on_progress'] = true;
+            } else {
+                $resp['on_progress'] = false;
+            }
+
+            $jadwal = JadwalUjian::GetNamaUjian($latest->jadwal_ujian_id);
+
+            $resp['id'] = $jadwal->jadwal_ujian_id;
+            $resp['nama'] = $jadwal->nama;
+
+            return new GenericResponse(true, ResponseStatus::SUCCESS()->value, $resp);
+
         } else {
             $resp['on_progress'] = false;
+            $resp['id'] ='';
+            $resp['nama'] = '';
+
+            return new GenericResponse(true, ResponseStatus::SUCCESS()->value, $resp);
         }
 
-        $jadwal = JadwalUjian::GetNamaUjian($latest->jadwal_ujian_id);
 
-        $resp['id'] = $jadwal->jadwal_ujian_id;
-        $resp['nama'] = $jadwal->nama;
-
-        return new GenericResponse(true, ResponseStatus::SUCCESS()->value, $resp);
     }
 }
