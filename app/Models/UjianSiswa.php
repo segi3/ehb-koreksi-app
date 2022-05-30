@@ -17,7 +17,7 @@ class UjianSiswa extends Model
 
     public $incrementing = false;
 
-    protected $fillable =[
+    protected $fillable = [
         'id',
         'random_soal',
         'random_jawaban',
@@ -52,6 +52,13 @@ class UjianSiswa extends Model
         return count($soal);
     }
 
+    protected function IsUjianFinishedCorrected($jadwal_ujian_id) {
+        return DB::table('ujian_siswa')
+            ->where('jadwal_ujian_id', $jadwal_ujian_id)
+            ->where('jumlah_benar', '-2')
+            ->select('id');
+    }
+
     protected function UjianSiswaByUjianID($jadwal_ujian_id) {
 
         return DB::table('ujian_siswa')->where('jadwal_ujian_id', $jadwal_ujian_id);
@@ -75,6 +82,14 @@ class UjianSiswa extends Model
     }
 
     protected function UjianSiswaBelumSelesaiKoreksi($jadwal_ujian_id) {
-        return DB::table('ujian_siswa')->where('jadwal_ujian_id', '34e840e0-9b03-11ec-8c5d-4bdede66813d')->where('jumlah_benar', '=', '-2')->get()->count();
+        return DB::table('ujian_siswa')->where('jadwal_ujian_id', $jadwal_ujian_id)->where('jumlah_benar', '=', '-2')->get()->count();
+    }
+
+    protected function UjianKoreksiCount() {
+        return DB::table('ujian_siswa')
+            ->selectRaw("jadwal_ujian_id," .
+                "sum(case when jumlah_benar = '-2' then 1 else 0 end) as not_done,".
+                "sum(case when jumlah_benar != '-2' then 1 else 0 end) as done")
+            ->groupBy('jadwal_ujian_id');
     }
 }

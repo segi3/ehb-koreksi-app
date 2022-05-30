@@ -34,8 +34,15 @@ class JadwalUjian extends Model
             ->join('paket', 'ujian_paket.paket_id', 'paket.id')
             ->join('jadwal_ujian', 'jadwal_ujian.id', 'ujian_paket.jadwal_ujian_id')
             ->whereIn('ujian_paket.jadwal_ujian_id', $j)
-            ->select('ujian_paket.jadwal_ujian_id','paket.nama', 'jadwal_ujian.sesi')
+            ->select('ujian_paket.jadwal_ujian_id','paket.nama', 'jadwal_ujian.sesi', 'jadwal_ujian.deskripsi')
             ->orderBy('nama', 'asc');
+    }
+
+    protected function GetUjianNamaById($jadwal_ujian_id) {
+        return DB::table('ujian_paket')
+            ->join('paket','paket.id', 'ujian_paket.paket_id')
+            ->where('ujian_paket.jadwal_ujian_id', $jadwal_ujian_id)
+            ->select('paket.nama');
     }
 
 }
