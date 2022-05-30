@@ -20,3 +20,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/koreksi', [App\Http\Controllers\HomeController::class, 'ShowKoreksi'])->name('koreksi');
+Route::get('/hasil', [App\Http\Controllers\HomeController::class, 'ShowHasilDev'])->name('hasil');
+
+Route::get('/export/agregasi-ujian/{jadwal_ujian_id}', [App\Http\Controllers\ExcelExportController::class, 'ExportHasilAgregasiDataUjianLevel']);

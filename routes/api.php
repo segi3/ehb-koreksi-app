@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+# even if the effort is fruitless. there aint no shame in trying
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
@@ -25,7 +27,12 @@ Route::get('/is-available-jadwal/{jadwal_ujian_id}', [App\Http\Controllers\Api\J
 Route::get('/is-any-onprogress', [App\Http\Controllers\Api\JadwalUjianController::class, 'IsAnyOnProgress']);
 Route::get('/active-jadwal', [App\Http\Controllers\Api\JadwalUjianController::class, 'GetActiveUjian']);
 
+Route::get('/koreksi/summary', [App\Http\Controllers\Api\UjianSiswaController::class, 'KoreksiSummary']);
+
 Route::get('/koreksi/start/{jadwal_ujian_id}', [App\Http\Controllers\Api\RemoteKoreksiController::class, 'StartRemoteKoreksi']);
 Route::get('/koreksi/finish/{jadwal_ujian_id}/{state}', [App\Http\Controllers\Api\RemoteKoreksiController::class, 'FinishHookRemoteKoreksi']);
 Route::get('/koreksi/elapsed/{jadwal_ujian_id}', [App\Http\Controllers\Api\RemoteKoreksiController::class, 'GetElapsedTime']);
 Route::get('/koreksi/fullstat/{jadwal_ujian_id}', [App\Http\Controllers\Api\RemoteKoreksiController::class, 'GetFullStat']);
+
+Route::post('/agregasi/is-already-corrected', [App\Http\Controllers\Api\AgregasiController::class, 'IsUjianCorrected']);
+Route::post('/agregasi', [App\Http\Controllers\Api\AgregasiController::class, 'ShowAllAgregasiUjian']);
