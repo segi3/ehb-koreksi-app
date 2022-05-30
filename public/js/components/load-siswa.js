@@ -12,6 +12,51 @@ $('#paket-selector').on('change', function() {
     GetSiswaAjax(body)
 });
 
+$('#koreksi-button').on('click', () => {
+    selected_jadwal_ujian_id = $('#select-paket').find(':selected').val()
+    console.log('http://127.0.0.1:8000/api/koreksi/start/'+selected_jadwal_ujian_id)
+
+    nama_ujian = $("#select-paket option[value='"+selected_jadwal_ujian_id+"']").text();
+    console.log(nama_ujian)
+
+    var ujian_datatable = $('#ujian_siswa_table').DataTable({
+        retrieve: true
+    })
+
+    $.ajax({
+        type: 'GET',
+        contentType: "application/json",
+        dataType: "json",
+        url: 'http://127.0.0.1:8000/api/koreksi/start/'+selected_jadwal_ujian_id,
+        success: (data) => {
+            console.log('masuk success')
+
+        },
+        error: (err) => {
+            $("#koreksi-button").prop("disabled", true)
+
+            ujian_datatable.clear()
+            ujian_datatable.draw()
+
+            $('#koreksi-alert').hide();
+            $('#koreksi-alert').html('Sedang melakukan koreksi pada ' + nama_ujian.slice(0, -3))
+            setTimeout(function() {
+                $('#koreksi-alert').show();
+            }, 200);
+
+            // var row = document.createElement("tr");
+            // var msg = document.createElement('td');
+            // msg.innerHTML = 'Tidak bisa melihat data saat sedang melakukan koreksi ///'
+            // msg.setAttribute("colspan", "100")
+            // msg.setAttribute('style', 'text-align:center;')
+            // row.append(msg)
+            // $('#ujian_siswa_table').append(row);
+
+
+        }
+    })
+})
+
 $('#refresh-button').on('click', () => {
     selected_jadwal_ujian_id = $('#select-paket').find(':selected').val()
 
@@ -57,23 +102,28 @@ const GetSiswaAjax = async (body) => {
             // console.log(data.data.on_progress)
 
             if (data.data.on_progress) {
-                ujian_datatable.clear()
-                ujian_datatable.draw()
+                $("#koreksi-button").prop("disabled", true)
+
+                // ujian_datatable.clear()
+                // ujian_datatable.draw()
 
                 $('#koreksi-alert').hide();
-                $('#koreksi-alert').html('Sedang melakukan koreksi pada ' + data.data.nama)
+                $('#koreksi-alert').html('Sedang melakukan koreksi pada ' + data.data.nama.slice(0, -3))
                 setTimeout(function() {
                     $('#koreksi-alert').show();
                 }, 200);
 
-                var row = document.createElement("tr");
-                var msg = document.createElement('td');
-                msg.innerHTML = 'Tidak bisa melihat data saat sedang melakukan koreksi ///'
-                msg.setAttribute("colspan", "100")
-                msg.setAttribute('style', 'text-align:center;')
-                row.append(msg)
-                $('#ujian_siswa_table').append(row);
+                UpdateTable(body) // tetep tampilkna data
+
+                // var row = document.createElement("tr");
+                // var msg = document.createElement('td');
+                // msg.innerHTML = 'Tidak bisa melihat data saat sedang melakukan koreksi ///'
+                // msg.setAttribute("colspan", "100")
+                // msg.setAttribute('style', 'text-align:center;')
+                // row.append(msg)
+                // $('#ujian_siswa_table').append(row);
             } else {
+                $("#koreksi-button").prop("disabled", false)
                 $('#koreksi-alert').hide();
                 UpdateTable(body)
             }
