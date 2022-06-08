@@ -90,6 +90,8 @@
     {{-- <script src="{{ asset('js/components/ujian-siswa-table-loader.js')}}"></script> --}}
 
     <script>
+    // const base_url = window.location.origin
+
     $(document).ready( function () {
 
         var tableUjian = $('#agregasi-kisi-table').DataTable({
@@ -144,7 +146,7 @@
         // fetch all active jadwal
         $.ajax({
             type: 'GET',
-            url: 'http://127.0.0.1:8000/api/pelajaran',
+            url: base_url + '/api/pelajaran',
             success: (data) => {
                 const ujian = data.data
 
