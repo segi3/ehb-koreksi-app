@@ -13,8 +13,6 @@ use App\Models\AgregasiHasil;
 use App\Http\Resources\GenericResponse;
 use App\Enums\ResponseStatus;
 
-use Illuminate\Support\Facades\DB;
-
 class AgregasiController extends Controller
 {
     private function _Stand_Deviation($arr, $avg) {

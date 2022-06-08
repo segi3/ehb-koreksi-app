@@ -22,8 +22,7 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
-    {
+    public function index() {
         return view('home');
     }
 
@@ -37,6 +36,18 @@ class HomeController extends Controller
 
     public function ShowHasilDev() {
         return view('hasil');
+    }
+
+    public function ShowAgregasiKisi() {
+        return view('agregasi-kisi');
+    }
+
+    public function ShowDetailKisi() {
+        return view('detail-kisi');
+    }
+
+    public function ShowMutuKisi() {
+        return view('mutu-kisi');
     }
 }
 

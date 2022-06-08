@@ -241,73 +241,83 @@ return [
             'type' => 'sidebar-menu-search',
             'text' => 'search',
         ],
+        ['header' => 'KOREKSI'],
         [
             'text' => 'blog',
             'url'  => 'admin/blog',
             'can'  => 'manage-blog',
         ],
         [
-            'text'        => 'home',
+            'text'        => 'Home',
             'url'         => 'home',
-            'icon'        => 'far fa-fw fa-file'
+            'icon'        => 'fas fa-fw fa-home'
         ],
         [
-            'text'        => 'koreksi',
+            'text'        => 'Koreksi',
             'url'         => 'koreksi',
-            'icon'        => 'far fa-fw fa-file'
+            'icon'        => 'fas fa-fw fa-file'
         ],
         [
-            'text'        => 'hasil',
-            'url'         => 'hasil',
-            'icon'        => 'fas fa-fw fa-share'
+            'text'        => 'Agregasi Hasil Koreksi',
+            'url'         => 'agregasi-hasil',
+            'icon'        => 'fas fa-fw fa-poll'
         ],
-        // ['header' => 'account_settings'],
+        ['header' => 'KISI KISI'],
+        [
+            'text' => 'Mutu Kisi Kisi',
+            'url'  => 'detail-kisi',
+            'icon' => 'fas fa-fw fa-scroll'
+        ],
+        [
+            'text' => 'Download Mutu Kisi Kisi',
+            'url'  => 'mutu-kisi',
+            'icon' => 'fas fa-fw fa-poll'
+        ],
+
         // [
-        //     'text' => 'profile',
-        //     'url'  => 'admin/settings',
-        //     'icon' => 'fas fa-fw fa-user',
-        // ],
-        // [
-        //     'text' => 'change_password',
-        //     'url'  => 'admin/settings',
-        //     'icon' => 'fas fa-fw fa-lock',
-        // ],
-        // [
-        //     'text'    => 'multilevel',
+        //     'text'    => 'Mutu kisi kisi',
         //     'icon'    => 'fas fa-fw fa-share',
         //     'submenu' => [
-        //         [
-        //             'text' => 'level_one',
-        //             'url'  => '#',
-        //         ],
-        //         [
-        //             'text'    => 'level_one',
-        //             'url'     => '#',
-        //             'submenu' => [
-        //                 [
-        //                     'text' => 'level_two',
-        //                     'url'  => '#',
-        //                 ],
-        //                 [
-        //                     'text'    => 'level_two',
-        //                     'url'     => '#',
-        //                     'submenu' => [
-        //                         [
-        //                             'text' => 'level_three',
-        //                             'url'  => '#',
-        //                         ],
-        //                         [
-        //                             'text' => 'level_three',
-        //                             'url'  => '#',
-        //                         ],
-        //                     ],
-        //                 ],
-        //             ],
-        //         ],
-        //         [
-        //             'text' => 'level_one',
-        //             'url'  => '#',
-        //         ],
+                // [
+                //     'text' => 'Rata-rata per kisi kisi',
+                //     'url'  => 'agregasi-kisi',
+                // ],
+                // [
+                //     'text' => 'Detail per kisi',
+                //     'url'  => 'detail-kisi',
+                // ],
+                // [
+                //     'text' => 'Mutu kisi kisi',
+                //     'url'  => 'mutu-kisi',
+                // ],
+                // [
+                //     'text'    => 'level_one',
+                //     'url'     => '#',
+                //     'submenu' => [
+                //         [
+                //             'text' => 'level_two',
+                //             'url'  => '#',
+                //         ],
+                //         [
+                //             'text'    => 'level_two',
+                //             'url'     => '#',
+                //             'submenu' => [
+                //                 [
+                //                     'text' => 'level_three',
+                //                     'url'  => '#',
+                //                 ],
+                //                 [
+                //                     'text' => 'level_three',
+                //                     'url'  => '#',
+                //                 ],
+                //             ],
+                //         ],
+                //     ],
+                // ],
+                // [
+                //     'text' => 'level_one',
+                //     'url'  => '#',
+                // ],
         //     ],
         // ],
         // ['header' => 'labels'],

@@ -36,3 +36,6 @@ Route::get('/koreksi/fullstat/{jadwal_ujian_id}', [App\Http\Controllers\Api\Remo
 
 Route::post('/agregasi/is-already-corrected', [App\Http\Controllers\Api\AgregasiController::class, 'IsUjianCorrected']);
 Route::post('/agregasi', [App\Http\Controllers\Api\AgregasiController::class, 'ShowAllAgregasiUjian']);
+
+Route::get('/pelajaran', [App\Http\Controllers\Api\PelajaranController::class, 'GetAvailablePelajaran']);
+Route::get('/agregasi/kisi/{mapel}', [App\Http\Controllers\Api\AgregasiKisiController::class, 'GetAgregasiKisiMapel']);

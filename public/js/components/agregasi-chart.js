@@ -153,7 +153,7 @@ function NewPredikatChart(labels, data) {
                     'rgb(69, 54, 86)',
                     'rgb(96, 33, 86)'
                 ],
-                hoverOffset: 4
+                hoverOffset: 0
             }]
         }
     };
