@@ -1,4 +1,5 @@
 var selected_jadwal_ujian_id = ''
+const base_url = window.location.origin
 
 $('#paket-selector').on('change', function () {
     selected_jadwal_ujian_id = $(this).find(":selected").val()
@@ -8,14 +9,14 @@ $('#paket-selector').on('change', function () {
         "jadwal_ujian_id": selected_jadwal_ujian_id
     }
 
-    $('#download-form').attr('action', 'http://127.0.0.1:8000/export/agregasi-ujian/' + selected_jadwal_ujian_id);
+    $('#download-form').attr('action', base_url + '/export/agregasi-ujian/' + selected_jadwal_ujian_id);
 
     $.ajax({
         type: 'POST',
         data: JSON.stringify(body),
         contentType: "application/json",
         dataType: "json",
-        url: 'http://127.0.0.1:8000/api/agregasi/is-already-corrected',
+        url: base_url + '/api/agregasi/is-already-corrected',
         success: (data) => {
             console.log(data.data)
 
@@ -48,7 +49,7 @@ $('#download-button').on('click', () => {
 
     $.ajax({
         type: 'GET',
-        url: 'http://127.0.0.1:8000/export/agregasi-ujian/' + selected_jadwal_ujian_id,
+        url: base_url + '/export/agregasi-ujian/' + selected_jadwal_ujian_id,
         success: (data) => {
 
         },
@@ -70,7 +71,7 @@ const GetHasilAgregasi = async (body) => {
         type: 'GET',
         contentType: "application/json",
         dataType: "json",
-        url: 'http://127.0.0.1:8000/api/is-any-onprogress',
+        url: base_url + '/api/is-any-onprogress',
         success: (data) => {
 
             // console.log(data.data.on_progress)
@@ -125,7 +126,7 @@ const UpdateTable = async (body) => {
         data: JSON.stringify(body),
         contentType: "application/json",
         dataType: "json",
-        url: 'http://127.0.0.1:8000/api/agregasi',
+        url: base_url + '/api/agregasi',
         success: (data) => {
             console.log(data.data.data)
             // LoadUjianSiswaTableData(data.data)

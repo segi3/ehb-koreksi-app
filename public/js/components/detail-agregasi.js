@@ -1,10 +1,13 @@
 var selected_pelajaran = ''
 var paket_obj = {}
+const base_url = window.location.origin
 
 $('#pelajaran-selector').on('change', () => {
     selected_pelajaran = $('#select-pelajaran').find(":selected").val()
 
     console.log('selected ' + selected_pelajaran)
+
+    $('#loading-alert').show()
 
     GetMutuKisi(selected_pelajaran)
 })
@@ -40,12 +43,14 @@ const GetMutuKisi = (pelajaran) => {
 
     $.ajax({
         type: 'GET',
-        url: 'http://127.0.0.1:8000/api/agregasi/kisi/' + pelajaran,
+        url: base_url + '/api/agregasi/kisi/' + pelajaran,
         success: (data) => {
             console.log(data.data)
 
             if (data.data.length == 0) {
                 // TODO zero condition
+
+                $('#loading-alert').hide()
                 return
             }
 
@@ -78,6 +83,7 @@ const GetMutuKisi = (pelajaran) => {
 const InsertPieCharts = (paket_data) => {
 
     var canvasArray = []
+    $('#loading-alert').show()
 
     for(let i=0; i<paket_data.length; i++) {
         let id_ = 'ctx' + i
@@ -182,6 +188,7 @@ const InsertPieCharts = (paket_data) => {
 
         // break
     }
+    $('#loading-alert').hide()
 }
 
 const GenerateCardWrapper = () => {
