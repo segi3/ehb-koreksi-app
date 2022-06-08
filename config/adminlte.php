@@ -247,16 +247,16 @@ return [
             'url'  => 'admin/blog',
             'can'  => 'manage-blog',
         ],
-        [
-            'text'        => 'Home',
-            'url'         => 'home',
-            'icon'        => 'fas fa-fw fa-home'
-        ],
-        [
-            'text'        => 'Koreksi',
-            'url'         => 'koreksi',
-            'icon'        => 'fas fa-fw fa-file'
-        ],
+        // [
+        //     'text'        => 'Home',
+        //     'url'         => 'home',
+        //     'icon'        => 'fas fa-fw fa-home'
+        // ],
+        // [
+        //     'text'        => 'Koreksi',
+        //     'url'         => 'koreksi',
+        //     'icon'        => 'fas fa-fw fa-file'
+        // ],
         [
             'text'        => 'Agregasi Hasil Koreksi',
             'url'         => 'agregasi-hasil',
