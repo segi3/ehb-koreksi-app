@@ -36,8 +36,8 @@
         </div>
     </div>
 
-    <div class="alert alert-primary" role="alert" id="" style="display:none">
-        alert
+    <div class="alert alert-primary" role="alert" id="loading-alert" style="display:none">
+        Loading
     </div>
     <div id="graph-container" class="row">
         {{-- <div class="card">

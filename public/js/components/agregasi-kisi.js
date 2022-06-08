@@ -1,10 +1,11 @@
 var selected_pelajaran = ''
-var paket_obj = {};
+var paket_obj = {}
+const base_url = window.location.origin
 
 $('#pelajaran-selector').on('change', () => {
     selected_pelajaran = $('#select-pelajaran').find(":selected").val()
 
-    $('#download-form').attr('action', 'http://127.0.0.1:8000/storage/mutu_kisi/' + selected_pelajaran + '_mutusoal.xls');
+    $('#download-form').attr('action', base_url + '/storage/mutu_kisi/' + selected_pelajaran + '_mutusoal.xls');
 
     console.log('selected ' + selected_pelajaran)
 
@@ -40,7 +41,7 @@ const UpdateTable = async (pelajaran) => {
 
     $.ajax({
         type: 'GET',
-        url: 'http://127.0.0.1:8000/api/agregasi/kisi/' + pelajaran,
+        url: base_url + '/api/agregasi/kisi/' + pelajaran,
         success: (data) => {
             console.log(data.data)
 

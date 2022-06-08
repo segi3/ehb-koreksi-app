@@ -1,5 +1,5 @@
-
 var selected_jadwal_ujian_id = ''
+const base_url = window.location.origin
 
 $('#paket-selector').on('change', function() {
     selected_jadwal_ujian_id = $(this).find(":selected").val()
@@ -14,7 +14,7 @@ $('#paket-selector').on('change', function() {
 
 $('#koreksi-button').on('click', () => {
     selected_jadwal_ujian_id = $('#select-paket').find(':selected').val()
-    console.log('http://127.0.0.1:8000/api/koreksi/start/'+selected_jadwal_ujian_id)
+    console.log(base_url + '/api/koreksi/start/'+selected_jadwal_ujian_id)
 
     nama_ujian = $("#select-paket option[value='"+selected_jadwal_ujian_id+"']").text();
     console.log(nama_ujian)
@@ -27,7 +27,7 @@ $('#koreksi-button').on('click', () => {
         type: 'GET',
         contentType: "application/json",
         dataType: "json",
-        url: 'http://127.0.0.1:8000/api/koreksi/start/'+selected_jadwal_ujian_id,
+        url: base_url + '/api/koreksi/start/'+selected_jadwal_ujian_id,
         success: (data) => {
             console.log('masuk success')
 
@@ -70,7 +70,7 @@ $('#refresh-button').on('click', () => {
 
 
 const GetSiswa = async (body) => {
-    const response = fetch('http://127.0.0.1:8000/api/siswa-paket', {
+    const response = fetch(base_url + '/api/siswa-paket', {
         method: 'POST',
         body: JSON.stringify(body),
         headers: {
@@ -96,7 +96,7 @@ const GetSiswaAjax = async (body) => {
         type: 'GET',
         contentType: "application/json",
         dataType: "json",
-        url: 'http://127.0.0.1:8000/api/is-any-onprogress',
+        url: base_url + '/api/is-any-onprogress',
         success: (data) => {
 
             // console.log(data.data.on_progress)
@@ -159,7 +159,7 @@ const UpdateTable = async (body) => {
         data: JSON.stringify(body),
         contentType: "application/json",
         dataType: "json",
-        url: 'http://127.0.0.1:8000/api/siswa-paket',
+        url: base_url + '/api/siswa-paket',
         success: (data) => {
             // console.log(JSON.parse(data.data[0].random_soal))
             // LoadUjianSiswaTableData(data.data)
