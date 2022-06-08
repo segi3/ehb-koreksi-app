@@ -22,9 +22,10 @@
                 </div>
                 <div class="offset-lg-3 col-lg-2">
                     {{-- <button type="button" class="btn btn-primary" id="tampilkan-button" disabled>Tampilkan</button> --}}
-                    <form id="download-form" action="">
+
+                    {{-- <form id="download-form" action="">
                         <button type="submit" class="btn btn-primary" id="download-button">Download data</button>
-                    </form>
+                    </form> --}}
                 </div>
             </div>
 
@@ -73,6 +74,7 @@
 @section('js')
 
     <script src="{{ asset('js/components/agregasi.js')}}"></script>
+    <script src="{{ asset('js/components/number_format.js')}}"></script>
 
     <script>
     $(document).ready( function () {
@@ -93,9 +95,15 @@
             columns: [
                 { data: 'sekolah_nama' },
                 { data: 'rayon_nama' },
-                { data: 'avg' },
-                { data: 'min' },
-                { data: 'max' }
+                { data: 'avg', render: function (data, type, row) {
+                    return formatTwoDecimalPlace(data);
+                } },
+                { data: 'min', render: function (data, type, row) {
+                    return formatTwoDecimalPlace(data);
+                } },
+                { data: 'max', render: function (data, type, row) {
+                    return formatTwoDecimalPlace(data);
+                } }
             ]
         })
 
