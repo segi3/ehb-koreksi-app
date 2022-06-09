@@ -255,7 +255,8 @@ return [
         [
             'text'        => 'Koreksi',
             'url'         => 'koreksi',
-            'icon'        => 'fas fa-fw fa-file'
+            'icon'        => 'fas fa-fw fa-file',
+            'can'         => ['isAdmin'],
         ],
         [
             'text'        => 'Agregasi Hasil Koreksi',

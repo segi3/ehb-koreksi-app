@@ -49,4 +49,8 @@ class User extends Authenticatable
 
         return DB::table('users')->get();
     }
+
+    protected function GetUserByUsername($username) {
+        return DB::table('users')->where('username', '=', $username);
+    }
 }

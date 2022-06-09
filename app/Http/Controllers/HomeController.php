@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
-use App\Models\ViewHasilUjian;
 class HomeController extends Controller
 {
     /**
@@ -23,7 +23,10 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index() {
-        return view('home');
+        if (Gate::allows('isAdmin')) return view('home');
+        else return view('hasil');
+
+        return view('hasil');
     }
 
     public function ShowKoreksi() {
