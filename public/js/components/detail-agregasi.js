@@ -68,9 +68,16 @@ const GetMutuKisi = (pelajaran) => {
             });
             UpdatePaketSelectorOption()
 
-            $('#select-paket-pel').val('paket_1')
+            if (paket_obj.paket_1 != null) { // case paket yang tidak ada paket_1
+                $('#select-paket-pel').val('paket_1')
+                InsertPieCharts(paket_obj.paket_1)
+            } else {
+                const key = Object.keys(paket_obj)[0]
+                $('#select-paket-pel').val(key)
+                InsertPieCharts(paket_obj[key])
+            }
 
-            InsertPieCharts(paket_obj.paket_1)
+
 
         },
         error: (err) => {
