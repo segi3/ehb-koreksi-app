@@ -25,9 +25,9 @@ $('#paket-pel-selector').on('change', () => {
 })
 
 const UpdatePaketSelectorOption = () => {
-    $("option[value='paket_1']").remove();
-    $("option[value='paket_2']").remove();
-    $("option[value='paket_3']").remove();
+    $("option[value='paket_1']").remove()
+    $("option[value='paket_2']").remove()
+    $("option[value='paket_3']").remove()
 
     Object.keys(paket_obj).forEach(key => {
         var option = document.createElement("option")
@@ -80,7 +80,13 @@ const GetMutuKisi = (pelajaran) => {
     })
 }
 
+const deletePieCharts = () => {
+    $('#graph-container').empty()
+}
+
 const InsertPieCharts = (paket_data) => {
+
+    deletePieCharts()
 
     var canvasArray = []
     $('#loading-alert').show()
