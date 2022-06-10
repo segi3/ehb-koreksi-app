@@ -9,6 +9,8 @@ $('#pelajaran-selector').on('change', () => {
 
     console.log('selected ' + selected_pelajaran)
 
+    $('#loading-alert').show()
+
     UpdateTable(selected_pelajaran)
 })
 
@@ -48,6 +50,7 @@ const UpdateTable = async (pelajaran) => {
             if (data.data.length == 0) {
                 aggkisi_datatable.clear()
                 aggkisi_datatable.draw()
+                $('#loading-alert').hide()
             }
 
             var paketExists = [];
@@ -69,6 +72,7 @@ const UpdateTable = async (pelajaran) => {
             aggkisi_datatable.clear()
             aggkisi_datatable.rows.add(paket_obj.paket_1)
             aggkisi_datatable.draw()
+            $('#loading-alert').hide()
         },
         error: (err) => {
             console.log(err)
