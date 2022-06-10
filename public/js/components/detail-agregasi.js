@@ -19,9 +19,8 @@ $('#paket-pel-selector').on('change', () => {
 
     selected_paket_pel = $('#select-paket-pel').find(":selected").val()
 
-    aggkisi_datatable.clear()
-    aggkisi_datatable.rows.add(paket_obj[selected_paket_pel])
-    aggkisi_datatable.draw()
+    console.log(selected_paket_pel)
+    InsertPieCharts(paket_obj[selected_paket_pel])
 })
 
 const UpdatePaketSelectorOption = () => {
