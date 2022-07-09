@@ -14,7 +14,6 @@ class PelajaranController extends Controller
 {
     public function GetAvailablePelajaran() {
         $pelajaran = Pelajaran::GetAvailablePelajaran()->get();
-
         return new GenericResponse(true, ResponseStatus::SUCCESS()->value, $pelajaran);
     }
 }

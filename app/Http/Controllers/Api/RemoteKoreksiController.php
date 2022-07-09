@@ -16,6 +16,7 @@ use App\Enums\ResponseStatus;
 use App\Enums\StatusKoreksi;
 
 use App\Http\Resources\GenericResponse;
+use Exception;
 
 class RemoteKoreksiController extends Controller
 {
@@ -23,7 +24,8 @@ class RemoteKoreksiController extends Controller
     public function StartRemoteKoreksi($jadwal_ujian_id) {
 
         $stateData = StateKoreksi::updateOrCreate([
-            'jadwal_ujian_id' => $jadwal_ujian_id,
+            'jadwal_ujian_id' => $jadwal_ujian_id
+        ], [
             'state' => StatusKoreksi::on_progress()->value
         ]);
 
@@ -32,13 +34,12 @@ class RemoteKoreksiController extends Controller
                 'timeout'  => 1.0,
                 'connect_timeout' => 1.0
             ]);
-
             $response = $client->get('http://127.0.0.1:5000/koreksi/' . $jadwal_ujian_id);
 
-        } catch (GuzzleHttp\Exception\GuzzleException $e) {
+        } catch (Exception $e) {
+            return new GenericResponse(true, ResponseStatus::SUCCESS()->value, $stateData);
             return new GenericResponse(false, ResponseStatus::INTERNAL_SERVER_ERROR()->value, $e);
         }
-
 
         return new GenericResponse(true, ResponseStatus::SUCCESS()->value, $stateData);
     }
@@ -47,9 +48,14 @@ class RemoteKoreksiController extends Controller
 
         $update = StateKoreksi::UpdateKoreksiState($jadwal_ujian_id, $state);
 
-        if (!$update) return new GenericResponse(false, ResponseStatus::DENIED()->value, $update);
+        $response = [
+            'id' => $jadwal_ujian_id,
+            'state' => $state
+        ];
 
-        return new GenericResponse(true, ResponseStatus::SUCCESS()->value, $update);
+        if (!$update) return new GenericResponse(false, ResponseStatus::DENIED()->value, $response);
+
+        return new GenericResponse(true, ResponseStatus::SUCCESS()->value, $response);
     }
 
     public function GetElapsedTime($jadwal_ujian_id) {

@@ -25,7 +25,7 @@ class StateKoreksi extends Model
 
         if(!$latest) return False;
 
-        if ($latest->state != StatusKoreksi::on_progress()->value) {
+        if ($latest->state == StatusKoreksi::on_progress()->value) {
             return True;
         }
 

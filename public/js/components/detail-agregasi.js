@@ -103,40 +103,16 @@ const InsertPieCharts = (paket_data) => {
         let canvas = document.createElement('canvas')
         canvas.id = id_
 
-        let card = document.createElement('div')
-        card.classList.add('card')
-        let body = document.createElement('div')
-        body.classList.add('card-body')
-        let rowdiv = document.createElement('div')
-        rowdiv.classList.add('row')
-        let pieContainer = document.createElement('div')
-        pieContainer.classList.add('graph-size')
-        pieContainer.classList.add('col-lg-5')
-        let desc = document.createElement('div')
-        desc.classList.add('col-lg-7')
-        // desc.html(
-        //     '<div class="">' +
-        //         '<b>Soal Nomor </b> 1' +
-        //     '</div>' +
-        //     '<div>' +
-        //         '<b>KD</b>' +
-        //         '<div>' +
-        //             'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dicta ducimus inventore laborum laudantium nobis dolor quaerat velit tempore doloremque reiciendis quod porro quisquam, provident, animi neque eos quis, nesciunt nemo?' +
-        //         '</div>' +
-        //     '</div>' +
-        //     '<div>' +
-        //         '<b>IBS</b>' +
-        //         '<div>' +
-        //             'Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus laborum dolor veniam deleniti unde architecto quis quibusdam quam nobis laboriosam aut voluptate suscipit nisi possimus est, maiores sint ab saepe.' +
-        //         '</div>' +
-        //     '</div>'
-        // )
-
-        pieContainer.appendChild(canvas)
-        rowdiv.appendChild(pieContainer)
-        rowdiv.appendChild(desc)
-        body.appendChild(rowdiv)
-        card.appendChild(body)
+        pred = ''
+        if (paket_data[i].rata_rata > 0.85) {
+            pred = 'Sangat Baik'
+        } else if (paket_data[i].rata_rata > 0.7) {
+            pred = 'Baik'
+        } else if (paket_data[i].rata_rata > 0.55) {
+            pred = 'Cukup'
+        } else {
+            pred = 'Kurang'
+        }
 
         $('#graph-container').append(
             $('<div/>', {class: 'card col-lg-6'}).append(
@@ -165,6 +141,16 @@ const InsertPieCharts = (paket_data) => {
                                 .append($('<div/>', {})
                                     .append($('<b/>', {text: 'IBS'}))
                                     .append($('<p/>', {text: paket_data[i].ibs}))
+                                )
+                                .append($('<div/>', {class: 'row'})
+                                    .append($('<div/>', {class: 'col-6'})
+                                        .append($('<b/>', {text: 'Rata-rata benar'}))
+                                        .append($('<p/>', {text: formatTwoDecimalPlace(paket_data[i].rata_rata)}))
+                                    )
+                                    .append($('<div/>', {class: 'col-6'})
+                                        .append($('<b/>', {text: 'Predikat'}))
+                                        .append($('<p/>', {text: pred}))
+                                    )
                                 )
                         )
                 )

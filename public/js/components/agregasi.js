@@ -25,6 +25,12 @@ $('#paket-selector').on('change', function () {
                 $('#agregasi-alert').hide()
                 $("#download-button").prop("disabled", false)
             } else {
+                var ujian_datatable = $('#agregasi_table').DataTable({
+                    retrieve: true
+                })
+
+                ujian_datatable.clear()
+                ujian_datatable.draw()
                 $('#agregasi-alert').hide();
                 $('#agregasi-alert').html('Data belum dikoreksi semua!')
                 setTimeout(function() {

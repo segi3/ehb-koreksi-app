@@ -14,10 +14,7 @@ class AgregasiKisiController extends Controller
 {
 
     public function GetAgregasiKisiMapel($mapel) {
-        // $mapel = 'Antropologi';
-
         $agg = AgregasiKisi::GetAgregasiKisi($mapel)->get();
-
         return new GenericResponse(true, ResponseStatus::SUCCESS()->value, $agg);
     }
 

@@ -28,9 +28,6 @@ class AgregasiController extends Controller
     }
 
     public function ShowAllAgregasiUjian(Request $request) {
-
-        // example // http://127.0.0.1:8000/api/agregasi/73f40640-9afb-11ec-90f1-b3c24afdef51
-
         $jadwal_ujian_id = $request->jadwal_ujian_id;
 
         $data = AgregasiHasil::GetAllHasilUjian($jadwal_ujian_id)->get();
@@ -79,14 +76,12 @@ class AgregasiController extends Controller
 
             $nilai = floatval($agg->jumlah_benar) / $jumlah_soal * 100;
             array_push($sum_nilai[$agg->sekolah_id], $nilai);
-
         }
 
         $response_data = [];
         $all_avgs = [];
         $all_min = 100.0;
         $all_max = 0.0;
-
 
         foreach ($sum_nilai as $agg) {
 

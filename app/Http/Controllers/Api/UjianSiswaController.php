@@ -31,12 +31,10 @@ class UjianSiswaController extends Controller
         }
 
         $jadwal_ujian_id = $request->jadwal_ujian_id;
-        $stateKoreksi = StateKoreksi::CAMPUR()->value;
+        $stateKoreksi = StateKoreksi::SUDAH_DIKOREKSI()->value;
         $ujian_siswa = UjianSiswa::UjianSiswaTableByUjianID($jadwal_ujian_id)->get()->toArray();
 
         $jumlah_soal = UjianSiswa::GetUjianJumlahSoal($ujian_siswa[0]->id);
-
-        // return new SiswaResource(true, ResponseStatus::SUCCESS()->value, $stateKoreksi, $ujian_siswa);
 
         foreach($ujian_siswa as $ujian) {
             if ($ujian->jumlah_benar == '-2') continue;

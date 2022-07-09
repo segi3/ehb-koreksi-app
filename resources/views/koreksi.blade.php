@@ -121,7 +121,7 @@
             contentType: "application/json",
             dataType: "json",
             url: 'http://127.0.0.1:8000/api/is-any-onprogress',
-            success: (data) => {
+            success: async (data) => {
 
                 // tableUjian.clear()
                 // tableUjian.draw()
@@ -129,8 +129,10 @@
                 if (data.data.on_progress) {
                     $("#koreksi-button").prop("disabled", true)
 
-                    $('#koreksi-alert').html('Sedang melakukan koreksi pada ' + data.data.nama.slice(0, -3))
-                    $('#koreksi-alert').show();
+                    await GetElapsedKoreksiTime(data.data.id, data.data.nama)
+
+                    // $('#koreksi-alert').html('Sedang melakukan koreksi pada ' + data.data.nama.slice(0, -3))
+                    // $('#koreksi-alert').show()
 
                     // var row = document.createElement("tr");
                     // var msg = document.createElement('td');

@@ -86,6 +86,29 @@ const GetSiswa = async (body) => {
     })
 }
 
+const GetElapsedKoreksiTime = async (ujian_id, ujian_nama) => {
+    $.ajax({
+        type: 'GET',
+        contentType: "application/json",
+        dataType: "json",
+        url: base_url + '/api/koreksi/elapsed/' + ujian_id,
+        success: (data) => {
+
+            if (data.success) {
+                $('#koreksi-alert').hide();
+                $('#koreksi-alert').html('Sedang melakukan koreksi pada ' + ujian_nama.slice(0, -3) + ', dimulai ' + data.data.elapsed_time_minutes + ' menit yang lalu')
+                setTimeout(function() {
+                    $('#koreksi-alert').show();
+                }, 200);
+            }
+
+        },
+        error: (err) => {
+            console.log(err)
+        }
+    })
+}
+
 const GetSiswaAjax = async (body) => {
 
     var ujian_datatable = $('#ujian_siswa_table').DataTable({
@@ -97,7 +120,7 @@ const GetSiswaAjax = async (body) => {
         contentType: "application/json",
         dataType: "json",
         url: base_url + '/api/is-any-onprogress',
-        success: (data) => {
+        success: async (data) => {
 
             // console.log(data.data.on_progress)
 
@@ -107,11 +130,7 @@ const GetSiswaAjax = async (body) => {
                 // ujian_datatable.clear()
                 // ujian_datatable.draw()
 
-                $('#koreksi-alert').hide();
-                $('#koreksi-alert').html('Sedang melakukan koreksi pada ' + data.data.nama.slice(0, -3))
-                setTimeout(function() {
-                    $('#koreksi-alert').show();
-                }, 200);
+                await GetElapsedKoreksiTime(data.data.id, data.data.nama)
 
                 UpdateTable(body) // tetep tampilkna data
 

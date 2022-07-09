@@ -23,9 +23,9 @@
                 <div class="offset-lg-3 col-lg-2">
                     {{-- <button type="button" class="btn btn-primary" id="tampilkan-button" disabled>Tampilkan</button> --}}
 
-                    {{-- <form id="download-form" action="">
+                    <form id="download-form" action="">
                         <button type="submit" class="btn btn-primary" id="download-button">Download data</button>
-                    </form> --}}
+                    </form>
                 </div>
             </div>
 

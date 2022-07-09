@@ -17,9 +17,7 @@ use NunoMaduro\Collision\Adapters\Phpunit\State;
 class JadwalUjianController extends Controller
 {
     public function GetActiveUjian() {
-
         $jadwal = JadwalUjian::UjianSiswaByUjianID()->get();
-
         return new GenericResponse(true, ResponseStatus::SUCCESS()->value, $jadwal);
     }
 
@@ -27,7 +25,7 @@ class JadwalUjianController extends Controller
 
         $isinprogress = StateKoreksi::IsOnProgress($jadwal_ujian_id);
 
-        if (!$isinprogress)  return new GenericResponse(true, ResponseStatus::SUCCESS()->value, [
+        if ($isinprogress)  return new GenericResponse(true, ResponseStatus::SUCCESS()->value, [
             'in_progress' => true
         ]);
 
@@ -38,9 +36,7 @@ class JadwalUjianController extends Controller
     }
 
     public function IsAnyOnProgress() {
-
         $resp = [];
-
         $latest = StateKoreksi::GetLatestKoreksiAll();
 
         if ($latest != null) {
@@ -64,7 +60,5 @@ class JadwalUjianController extends Controller
 
             return new GenericResponse(true, ResponseStatus::SUCCESS()->value, $resp);
         }
-
-
     }
 }
