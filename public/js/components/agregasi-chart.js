@@ -155,6 +155,17 @@ function NewPredikatChart(labels, data) {
                 ],
                 hoverOffset: 0
             }]
+        },
+        options: {
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Jumlah Predikat Ujian'
+                },
+                legend: {
+                    position: 'bottom'
+                }
+            }
         }
     };
 
