@@ -66,6 +66,7 @@
 @section('js')
 
     <script>
+    const base_url = window.location.origin
     $(document).ready( function () {
 
         var tableUjian = $('#ujian_siswa_table').DataTable({
@@ -116,7 +117,7 @@
         // fetch summary
         $.ajax({
             type: 'GET',
-            url: 'http://127.0.0.1:8000/api/koreksi/summary',
+            url: base_url + '/api/koreksi/summary',
             success: (data) => {
 
                 data.data.forEach(el => {

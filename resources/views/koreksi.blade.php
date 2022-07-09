@@ -120,7 +120,7 @@
             type: 'GET',
             contentType: "application/json",
             dataType: "json",
-            url: 'http://127.0.0.1:8000/api/is-any-onprogress',
+            url: base_url+ '/api/is-any-onprogress',
             success: async (data) => {
 
                 // tableUjian.clear()
@@ -161,7 +161,7 @@
         // fetch all active jadwal
         $.ajax({
             type: 'GET',
-            url: 'http://127.0.0.1:8000/api/active-jadwal',
+            url: base_url + '/api/active-jadwal',
             success: (data) => {
                 const ujian = data.data
 
