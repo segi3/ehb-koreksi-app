@@ -21,7 +21,27 @@ use Exception;
 class RemoteKoreksiController extends Controller
 {
 
+    private function _testConnection() {
+        try {
+            $client = new Client([
+                'timeout'  => 1.0,
+                'connect_timeout' => 1.0
+            ]);
+            $response = $client->get('http://127.0.0.1:5000/health/ping');
+
+        } catch (Exception $e) {
+            return false;
+        }
+        return true;
+    }
+
     public function StartRemoteKoreksi($jadwal_ujian_id) {
+
+        if (!$this->_testConnection()) {
+            return new GenericResponse(false, ResponseStatus::INTERNAL_SERVER_ERROR()->value, [
+                'inactive' => true
+            ]);
+        }
 
         $stateData = StateKoreksi::updateOrCreate([
             'jadwal_ujian_id' => $jadwal_ujian_id

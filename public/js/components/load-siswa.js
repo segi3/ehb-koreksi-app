@@ -30,27 +30,44 @@ $('#koreksi-button').on('click', () => {
         url: base_url + '/api/koreksi/start/'+selected_jadwal_ujian_id,
         success: (data) => {
             console.log('masuk success')
+            console.log(data)
+
+            if (!data.success && data.data.inactive) {
+
+                $('#koreksi-alert-red').hide();
+                $('#koreksi-alert-red').html('Server koreksi sedang inaktif')
+                setTimeout(function() {
+                    $('#koreksi-alert-red').show();
+                }, 200);
+
+            } else {
+                $("#koreksi-button").prop("disabled", true)
+
+                ujian_datatable.clear()
+                ujian_datatable.draw()
+
+                $('#koreksi-alert').hide();
+                $('#koreksi-alert').html('Sedang melakukan koreksi pada ' + nama_ujian.slice(0, -3))
+                setTimeout(function() {
+                    $('#koreksi-alert').show();
+                }, 200);
+            }
 
         },
         error: (err) => {
-            $("#koreksi-button").prop("disabled", true)
 
-            ujian_datatable.clear()
-            ujian_datatable.draw()
+            console.log(err)
 
-            $('#koreksi-alert').hide();
-            $('#koreksi-alert').html('Sedang melakukan koreksi pada ' + nama_ujian.slice(0, -3))
-            setTimeout(function() {
-                $('#koreksi-alert').show();
-            }, 200);
+            // $("#koreksi-button").prop("disabled", true)
 
-            // var row = document.createElement("tr");
-            // var msg = document.createElement('td');
-            // msg.innerHTML = 'Tidak bisa melihat data saat sedang melakukan koreksi ///'
-            // msg.setAttribute("colspan", "100")
-            // msg.setAttribute('style', 'text-align:center;')
-            // row.append(msg)
-            // $('#ujian_siswa_table').append(row);
+            // ujian_datatable.clear()
+            // ujian_datatable.draw()
+
+            // $('#koreksi-alert').hide();
+            // $('#koreksi-alert').html('Sedang melakukan koreksi pada ' + nama_ujian.slice(0, -3))
+            // setTimeout(function() {
+            //     $('#koreksi-alert').show();
+            // }, 200);
 
 
         }
@@ -58,6 +75,8 @@ $('#koreksi-button').on('click', () => {
 })
 
 $('#refresh-button').on('click', () => {
+    $('#koreksi-alert').hide();
+    $('#koreksi-alert-red').hide();
     selected_jadwal_ujian_id = $('#select-paket').find(':selected').val()
 
     var body = {

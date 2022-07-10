@@ -33,6 +33,10 @@
         alert koreksi
     </div>
 
+    <div class="alert alert-danger" role="alert" id="koreksi-alert-red" style="display:none">
+        alert gagal
+    </div>
+
     <table class="table table-dark" id ="ujian_siswa_table">
         <thead>
           <tr>
