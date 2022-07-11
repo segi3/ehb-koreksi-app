@@ -259,10 +259,26 @@ return [
             'can'         => ['isAdmin'],
         ],
         [
-            'text'        => 'Agregasi Hasil Koreksi',
-            'url'         => 'agregasi-hasil',
-            'icon'        => 'fas fa-fw fa-poll'
+            'text'    => 'Agregasi Hasil Koreksi',
+            'icon'    => 'fas fa-fw fa-share',
+            'submenu' => [
+                [
+                    'text'        => 'Agregasi per ujian',
+                    'url'         => 'agregasi-hasil',
+                    'icon'        => 'fas fa-fw fa-poll'
+                ],
+                [
+                    'text'        => 'Agregasi per rayon',
+                    'url'         => 'agregasi-hasil/rayon',
+                    'icon'        => 'fas fa-fw fa-poll'
+                ],
+            ],
         ],
+        // [
+        //     'text'        => 'Agregasi Hasil Koreksi',
+        //     'url'         => 'agregasi-hasil',
+        //     'icon'        => 'fas fa-fw fa-poll'
+        // ],
         ['header' => 'KISI KISI'],
         [
             'text' => 'Mutu Kisi Kisi',
@@ -279,46 +295,46 @@ return [
         //     'text'    => 'Mutu kisi kisi',
         //     'icon'    => 'fas fa-fw fa-share',
         //     'submenu' => [
-                // [
-                //     'text' => 'Rata-rata per kisi kisi',
-                //     'url'  => 'agregasi-kisi',
-                // ],
-                // [
-                //     'text' => 'Detail per kisi',
-                //     'url'  => 'detail-kisi',
-                // ],
-                // [
-                //     'text' => 'Mutu kisi kisi',
-                //     'url'  => 'mutu-kisi',
-                // ],
-                // [
-                //     'text'    => 'level_one',
-                //     'url'     => '#',
-                //     'submenu' => [
-                //         [
-                //             'text' => 'level_two',
-                //             'url'  => '#',
-                //         ],
-                //         [
-                //             'text'    => 'level_two',
-                //             'url'     => '#',
-                //             'submenu' => [
-                //                 [
-                //                     'text' => 'level_three',
-                //                     'url'  => '#',
-                //                 ],
-                //                 [
-                //                     'text' => 'level_three',
-                //                     'url'  => '#',
-                //                 ],
-                //             ],
-                //         ],
-                //     ],
-                // ],
-                // [
-                //     'text' => 'level_one',
-                //     'url'  => '#',
-                // ],
+        //         [
+        //             'text' => 'Rata-rata per kisi kisi',
+        //             'url'  => 'agregasi-kisi',
+        //         ],
+        //         [
+        //             'text' => 'Detail per kisi',
+        //             'url'  => 'detail-kisi',
+        //         ],
+        //         [
+        //             'text' => 'Mutu kisi kisi',
+        //             'url'  => 'mutu-kisi',
+        //         ],
+        //         [
+        //             'text'    => 'level_one',
+        //             'url'     => '#',
+        //             'submenu' => [
+        //                 [
+        //                     'text' => 'level_two',
+        //                     'url'  => '#',
+        //                 ],
+        //                 [
+        //                     'text'    => 'level_two',
+        //                     'url'     => '#',
+        //                     'submenu' => [
+        //                         [
+        //                             'text' => 'level_three',
+        //                             'url'  => '#',
+        //                         ],
+        //                         [
+        //                             'text' => 'level_three',
+        //                             'url'  => '#',
+        //                         ],
+        //                     ],
+        //                 ],
+        //             ],
+        //         ],
+        //         [
+        //             'text' => 'level_one',
+        //             'url'  => '#',
+        //         ],
         //     ],
         // ],
         // ['header' => 'labels'],

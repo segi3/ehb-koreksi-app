@@ -13,6 +13,8 @@ use App\Models\AgregasiHasil;
 use App\Http\Resources\GenericResponse;
 use App\Enums\ResponseStatus;
 
+// TODO: MOVE QUERY TO MODEL
+use Illuminate\Support\Facades\DB;
 class AgregasiController extends Controller
 {
     private function _Stand_Deviation($arr, $avg) {
@@ -25,6 +27,27 @@ class AgregasiController extends Controller
         }
 
         return (float)sqrt($variance/$num_of_elements);
+    }
+
+    public function ShowAgregasiRayon($kd_rayon) {
+        if ($kd_rayon == 'semua') {
+            $agg = DB::table('ujian_siswa')
+                ->selectRaw('avg(jumlah_benar)/JSON_LENGTH(random_soal)*100 as avg, min(jumlah_benar)/JSON_LENGTH(random_soal)*100 as min, max(jumlah_benar)/JSON_LENGTH(random_soal)*100 as max, paket.nama, rayon_nama')
+                ->join('paket', 'paket.id', 'ujian_siswa.paket_id')
+                ->where('rayon_nama', '!=', 'null')
+                ->groupBy('rayon_kd', 'paket_id')
+                ->get();
+        } else {
+            $agg = DB::table('ujian_siswa')
+                ->selectRaw('avg(jumlah_benar)/JSON_LENGTH(random_soal)*100 as avg, min(jumlah_benar)/JSON_LENGTH(random_soal)*100 as min, max(jumlah_benar)/JSON_LENGTH(random_soal)*100 as max, paket.nama, rayon_nama')
+                ->join('paket', 'paket.id', 'ujian_siswa.paket_id')
+                ->where('rayon_nama', '!=', 'null')
+                ->where('rayon_kd', $kd_rayon)
+                ->groupBy('rayon_kd', 'paket_id')
+                ->get();
+        }
+
+        return new GenericResponse(true, ResponseStatus::SUCCESS()->value, $agg);
     }
 
     public function ShowAllAgregasiUjian(Request $request) {

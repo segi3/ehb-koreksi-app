@@ -41,6 +41,10 @@ class HomeController extends Controller
         return view('hasil');
     }
 
+    public function ShowAgregasiRayon() {
+        return view('hasil-rayon');
+    }
+
     public function ShowAgregasiKisi() {
         return view('agregasi-kisi');
     }

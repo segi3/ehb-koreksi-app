@@ -25,6 +25,8 @@ Route::get('/koreksi', [App\Http\Controllers\HomeController::class, 'ShowKoreksi
 Route::get('/koreksi/log/{jadwal_ujian_id}', [App\Http\Controllers\KoreksiLogController::class, 'ShowKoreksiLog']);
 
 Route::get('/agregasi-hasil', [App\Http\Controllers\HomeController::class, 'ShowHasilDev']);
+Route::get('/agregasi-hasil/rayon', [App\Http\Controllers\HomeController::class, 'ShowAgregasiRayon']);
+
 Route::get('/agregasi-kisi', [App\Http\Controllers\HomeController::class, 'ShowAgregasiKisi']);
 Route::get('/detail-kisi', [App\Http\Controllers\HomeController::class, 'ShowDetailKisi']);
 Route::get('/mutu-kisi', [App\Http\Controllers\HomeController::class, 'ShowMutuKisi']);
