@@ -3,28 +3,28 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <h1>Agregasi Hasil Ujian Per Rayon</h1>
+    <h1>Agregasi Hasil Ujian Per Sekolah Rayon {{ $rayon_nama }}</h1>
 @stop
 
 @section('content')
-    <p>Pilih Pilih rayon untuk menampilkan hasil agregasi.</p>
+    <p>Pilih sekolah untuk menampilkan hasil agregasi.</p>
 
     <div class="card">
         <div class="card-body">
             <div class="row">
                 <div class="col-lg-2">
-                    Rayon
+                    Sekolah
                 </div>
-                <div class="col-lg-5" id="rayon-selector">
-                    <select class="form-select" aria-label="Default select example" id="select-rayon">
+                <div class="col-lg-5" id="sekolah-selector">
+                    <select class="form-select" aria-label="Default select example" id="select-sekolah">
                         <option value="semua" selected>Semua</option>
                       </select>
                 </div>
-                <div class="offset-lg-2 col-lg-3">
+                <div class="offset-lg-3 col-lg-2">
+
                     {{-- <form id="download-form" action="">
                         <button type="submit" class="btn btn-primary" id="download-button">Download data</button>
                     </form> --}}
-                    <button class="btn btn-secondary" id="rayon-detail-button">Agregasi Per Sekolah</button>
                 </div>
             </div>
 
@@ -53,7 +53,7 @@
     <table class="table table-dark" id ="agregasi_table">
         <thead>
           <tr>
-            <th scope="col">Rayon</th>
+            <th scope="col">Sekolah</th>
             <th scope="col">Paket</th>
             <th scope="col">Rata-rata</th>
             <th scope="col">Nilai Min</th>
@@ -72,7 +72,11 @@
 
 @section('js')
 
-    <script src="{{ asset('js/components/agregasi-rayon.js')}}"></script>
+    <script>
+        const KD_RAYON = '{{$kd_rayon}}'
+    </script>
+
+    <script src="{{ asset('js/components/agregasi-rayon-sekolah.js')}}"></script>
     <script src="{{ asset('js/components/number_format.js')}}"></script>
 
     <script>
@@ -95,7 +99,7 @@
             retrieve: true,
             data: {},
             columns: [
-                { data: 'rayon_nama' },
+                { data: 'sekolah_nama' },
                 { data: 'nama' },
                 { data: 'avg', render: function (data, type, row) {
                     return formatTwoDecimalPlace(data);
@@ -111,38 +115,39 @@
 
         // init data, semua rayon
         $.ajax({
-        type: 'GET',
-        url: base_url + '/api/agregasi/rayon/' + selected_kd_rayon,
-        success: (data) => {
+            type: 'GET',
+            url: base_url + '/api/agregasi/rayon/{{$kd_rayon}}/sekolah/' + selected_sekolah,
+            success: (data) => {
 
 
-            tableUjian.rows.add(data.data)
-            tableUjian.draw()
+                tableUjian.rows.add(data.data)
+                tableUjian.draw()
 
-            // const result = PrepareChartData(data.data)
+                // const result = PrepareChartData(data.data)
 
-            // NewAverageChart(result.chart.chart_labels, result.chart.chart_data)
-            // NewPredikatChart(result.pie.pie_labels, result.pie.pie_data)
+                // NewAverageChart(result.chart.chart_labels, result.chart.chart_data)
+                // NewPredikatChart(result.pie.pie_labels, result.pie.pie_data)
 
-        },
-        error: (err) => {
-            console.log(err)
-        }
-    })
+            },
+            error: (err) => {
+                console.log(err)
+            }
+        })
 
-        // fetch all active kab kota
+        // fetch all active sekolah
+        console.log('{{$kd_rayon}}')
         $.ajax({
             type: 'GET',
-            url: base_url + '/api/active-kab-kota',
+            url: base_url + '/api/sekolah/rayon/' + '{{$kd_rayon}}',
             success: (data) => {
                 const kabkota = data.data
                 console.log(kabkota)
                 kabkota.forEach(el => {
 
                     var option = document.createElement("option")
-                    option.value = el.kd_rayon
-                    option.innerHTML = el.nama
-                    $('#select-rayon').append(option);
+                    option.value = el.sekolah_id
+                    option.innerHTML = el.sekolah_nama
+                    $('#select-sekolah').append(option);
                 })
             },
             error: (err) => {

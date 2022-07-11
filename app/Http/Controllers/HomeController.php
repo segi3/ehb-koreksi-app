@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 
+use Illuminate\Support\Facades\DB; //TODO: PINDAH KE MODEL
+
 class HomeController extends Controller
 {
     /**
@@ -43,6 +45,13 @@ class HomeController extends Controller
 
     public function ShowAgregasiRayon() {
         return view('hasil-rayon');
+    }
+
+    public function ShowAgregasiRayonDetail($kd_rayon) {
+        $rayon_nama = DB::table('kab_kota')->where('kd_rayon', $kd_rayon)->first();
+        return view('hasil-rayon-detail')
+            ->with('kd_rayon', $kd_rayon)
+            ->with('rayon_nama', $rayon_nama->nama);
     }
 
     public function ShowAgregasiKisi() {

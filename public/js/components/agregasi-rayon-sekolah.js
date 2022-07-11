@@ -1,25 +1,14 @@
-var selected_kd_rayon = 'semua'
+var selected_sekolah = 'semua'
 const base_url = window.location.origin
 
-$('#rayon-selector').on('change', function () {
-    selected_kd_rayon = $(this).find(":selected").val()
-    nama_rayon = $(this).find(":selected").text()
+$('#sekolah-selector').on('change', function () {
+    selected_sekolah = $(this).find(":selected").val()
 
     // $('#download-form').attr('action', base_url + '/export/agregasi-ujian/' + selected_jadwal_ujian_id);
 
-    console.log(selected_kd_rayon)
+    console.log(selected_sekolah)
 
-    if (selected_kd_rayon == 'semua') {
-        $("#rayon-detail-button").prop("disabled", true)
-    }
-    else {
-        $('#rayon-detail-button').html('Agregasi per sekolah rayon ' + nama_rayon)
-        $("#rayon-detail-button").prop("disabled", false)
-        $('#rayon-detail-button').attr('href', base_url + '/agregasi-hasil/rayon/' + selected_kd_rayon);
-    }
-
-
-    GetHasilAgregasi(selected_kd_rayon)
+    GetHasilAgregasi(selected_sekolah)
 });
 
 $('#download-button').on('click', () => {
@@ -37,11 +26,7 @@ $('#download-button').on('click', () => {
     })
 })
 
-$('#rayon-detail-button').on('click', () => {
-    window.location.href = base_url + '/agregasi-hasil/rayon/' + selected_kd_rayon;
-})
-
-const GetHasilAgregasi = async (selected_kd_rayon) => {
+const GetHasilAgregasi = async (selected_sekolah) => {
 
     var ujian_datatable = $('#agregasi_table').DataTable({
         retrieve: true
@@ -65,12 +50,12 @@ const GetHasilAgregasi = async (selected_kd_rayon) => {
                     $('#koreksi-alert').show();
                 }, 200);
 
-                UpdateTable(selected_kd_rayon) // tetep tampilkna data
+                UpdateTable(selected_sekolah) // tetep tampilkna data
 
             } else {
                 $("#koreksi-button").prop("disabled", false)
                 $('#koreksi-alert').hide();
-                UpdateTable(selected_kd_rayon)
+                UpdateTable(selected_sekolah)
             }
 
         },
@@ -80,7 +65,7 @@ const GetHasilAgregasi = async (selected_kd_rayon) => {
     })
 }
 
-const UpdateTable = async (selected_kd_rayon) => {
+const UpdateTable = async (selected_sekolah) => {
 
     console.log('update table')
 
@@ -103,7 +88,7 @@ const UpdateTable = async (selected_kd_rayon) => {
 
     $.ajax({
         type: 'GET',
-        url: base_url + '/api/agregasi/rayon/' + selected_kd_rayon,
+        url: base_url + '/api/agregasi/rayon/'+ KD_RAYON +'/sekolah/' + selected_sekolah,
         success: (data) => {
 
             ujian_datatable.rows.add(data.data)

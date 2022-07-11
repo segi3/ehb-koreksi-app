@@ -37,8 +37,11 @@ Route::get('/koreksi/fullstat/{jadwal_ujian_id}', [App\Http\Controllers\Api\Remo
 
 Route::post('/agregasi/is-already-corrected', [App\Http\Controllers\Api\AgregasiController::class, 'IsUjianCorrected']);
 Route::post('/agregasi', [App\Http\Controllers\Api\AgregasiController::class, 'ShowAllAgregasiUjian']);
-Route::get('/active-kab-kota', [App\Http\Controllers\Api\KabKotaController::class, 'GetActiveKabKota']);
 Route::get('/agregasi/rayon/{kd_rayon}', [App\Http\Controllers\Api\AgregasiController::class, 'ShowAgregasiRayon']);
+Route::get('/agregasi/rayon/{rayon_kd}/sekolah/{sekolah_id}', [App\Http\Controllers\Api\AgregasiController::class, 'ShowAgregasiSekolah']);
+
+Route::get('/active-kab-kota', [App\Http\Controllers\Api\KabKotaController::class, 'GetActiveKabKota']);
+Route::get('/sekolah/rayon/{kd_rayon}', [App\Http\Controllers\Api\SekolahController::class, 'GetSekolahOnRayon']);
 
 Route::get('/pelajaran', [App\Http\Controllers\Api\PelajaranController::class, 'GetAvailablePelajaran']);
 Route::get('/agregasi/kisi/{mapel}', [App\Http\Controllers\Api\AgregasiKisiController::class, 'GetAgregasiKisiMapel']);
