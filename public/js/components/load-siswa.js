@@ -1,4 +1,5 @@
 var selected_jadwal_ujian_id = ''
+var jumlah_proses = 0
 const base_url = window.location.origin
 
 $('#paket-selector').on('change', function() {
@@ -19,6 +20,9 @@ $('#koreksi-button').on('click', () => {
     nama_ujian = $("#select-paket option[value='"+selected_jadwal_ujian_id+"']").text();
     console.log(nama_ujian)
 
+    jumlah_proses = $('#jumlah_proses').val()
+    console.log(jumlah_proses)
+
     var ujian_datatable = $('#ujian_siswa_table').DataTable({
         retrieve: true
     })
@@ -27,7 +31,7 @@ $('#koreksi-button').on('click', () => {
         type: 'GET',
         contentType: "application/json",
         dataType: "json",
-        url: base_url + '/api/koreksi/start/'+selected_jadwal_ujian_id,
+        url: base_url + '/api/koreksi/start/'+selected_jadwal_ujian_id+'/'+jumlah_proses,
         success: (data) => {
             console.log('masuk success')
             console.log(data)

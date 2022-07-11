@@ -24,6 +24,15 @@
                     <button type="button" class="btn btn-primary" id="koreksi-button" disabled>Koreksi</button>
                     <button type="button" class="btn btn-secondary" id="refresh-button">Refresh</button>
                 </div>
+                <div class="col-lg-2">
+                    Jumlah Proses
+                </div>
+                <div class="col-lg-5" id="paket-selector">
+                    <input type="number" id="jumlah_proses" name="jumlah_proses" min="1" max="4" value="4">
+                </div>
+                <div class="offset-lg-3 col-lg-2">
+                    <button type="button" class="btn btn-warning" id="log-button">Lihat Log</button>
+                </div>
             </div>
 
         </div>

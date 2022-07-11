@@ -11,12 +11,16 @@ use GuzzleHttp\Client;
 
 use App\Models\StateKoreksi;
 use App\Models\UjianSiswa;
+use App\Models\KoreksiLog;
 
 use App\Enums\ResponseStatus;
 use App\Enums\StatusKoreksi;
+use App\Enums\KoreksiLogState;
 
 use App\Http\Resources\GenericResponse;
 use Exception;
+
+use Carbon\Carbon;
 
 class RemoteKoreksiController extends Controller
 {
@@ -35,7 +39,7 @@ class RemoteKoreksiController extends Controller
         return true;
     }
 
-    public function StartRemoteKoreksi($jadwal_ujian_id) {
+    public function StartRemoteKoreksi($jadwal_ujian_id, $proses) {
 
         // if (!$this->_testConnection()) {
         //     return new GenericResponse(false, ResponseStatus::INTERNAL_SERVER_ERROR()->value, [
@@ -43,10 +47,20 @@ class RemoteKoreksiController extends Controller
         //     ]);
         // }
 
+        // create log entry
+        $log = KoreksiLog::create([
+            'jadwal_ujian_id' => $jadwal_ujian_id,
+            'state' => KoreksiLogState::RUNNING()->value,
+            'waktu_mulai' => Carbon::now(),
+            'waktu_selesai' => null,
+            'proses' => $proses
+        ]);
+
         $stateData = StateKoreksi::updateOrCreate([
             'jadwal_ujian_id' => $jadwal_ujian_id
         ], [
-            'state' => StatusKoreksi::on_progress()->value
+            'state' => StatusKoreksi::on_progress()->value,
+            'running_log' => $log->id
         ]);
 
         try {
@@ -54,7 +68,7 @@ class RemoteKoreksiController extends Controller
                 'timeout'  => 1.0,
                 'connect_timeout' => 1.0
             ]);
-            $response = $client->get('http://127.0.0.1:5000/koreksi/' . $jadwal_ujian_id);
+            $response = $client->get('http://127.0.0.1:5000/koreksi/' . $jadwal_ujian_id . '/' . $proses);
 
         } catch (Exception $e) {
             return new GenericResponse(true, ResponseStatus::SUCCESS()->value, $stateData);

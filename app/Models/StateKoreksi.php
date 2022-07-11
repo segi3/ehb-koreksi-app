@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 use App\Enums\StatusKoreksi;
+use App\Enums\KoreksiLogState;
 
 use Illuminate\Support\Facades\DB;
 
@@ -16,7 +17,7 @@ class StateKoreksi extends Model
 
     protected $table = 'state_koreksi';
 
-    protected $fillable = ['jadwal_ujian_id', 'state'];
+    protected $fillable = ['jadwal_ujian_id', 'state', 'running_log'];
 
     protected function IsOnProgress($jadwal_ujian_id) {
         $latest = DB::table('state_koreksi')
@@ -49,6 +50,13 @@ class StateKoreksi extends Model
         $latest = StateKoreksi::find($latest->id);
         $latest->state = $state;
         $latest->save();
+
+        // update log as well
+        $log = KoreksiLog::find($latest->running_log);
+        $log->waktu_selesai = Carbon::now();
+        $log->state = KoreksiLogState::FINISHED()->value;
+        $log->save();
+
 
         return True;
     }

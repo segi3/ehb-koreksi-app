@@ -30,7 +30,7 @@ Route::get('/active-jadwal', [App\Http\Controllers\Api\JadwalUjianController::cl
 Route::get('/koreksi/summary', [App\Http\Controllers\Api\UjianSiswaController::class, 'KoreksiSummary']);
 Route::get('/koreksi/summary/refresh', [App\Http\Controllers\Api\UjianSiswaController::class, 'KoreksiSummaryRefresh']);
 
-Route::get('/koreksi/start/{jadwal_ujian_id}', [App\Http\Controllers\Api\RemoteKoreksiController::class, 'StartRemoteKoreksi']);
+Route::get('/koreksi/start/{jadwal_ujian_id}/{proses}', [App\Http\Controllers\Api\RemoteKoreksiController::class, 'StartRemoteKoreksi']);
 Route::get('/koreksi/finish/{jadwal_ujian_id}/{state}', [App\Http\Controllers\Api\RemoteKoreksiController::class, 'FinishHookRemoteKoreksi']);
 Route::get('/koreksi/elapsed/{jadwal_ujian_id}', [App\Http\Controllers\Api\RemoteKoreksiController::class, 'GetElapsedTime']);
 Route::get('/koreksi/fullstat/{jadwal_ujian_id}', [App\Http\Controllers\Api\RemoteKoreksiController::class, 'GetFullStat']);
