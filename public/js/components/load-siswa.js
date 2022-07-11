@@ -2,7 +2,13 @@ var selected_jadwal_ujian_id = ''
 var jumlah_proses = 0
 const base_url = window.location.origin
 
-$('#paket-selector').on('change', function() {
+$('#log-button').on('click', () => {
+    selected_jadwal_ujian_id = $('#select-paket').find(':selected').val()
+
+    window.location.href = base_url + '/koreksi/log/' + selected_jadwal_ujian_id;
+})
+
+$('#paket-selector').on('change', function () {
     selected_jadwal_ujian_id = $(this).find(":selected").val()
 
     var body = {
@@ -15,9 +21,9 @@ $('#paket-selector').on('change', function() {
 
 $('#koreksi-button').on('click', () => {
     selected_jadwal_ujian_id = $('#select-paket').find(':selected').val()
-    console.log(base_url + '/api/koreksi/start/'+selected_jadwal_ujian_id)
+    console.log(base_url + '/api/koreksi/start/' + selected_jadwal_ujian_id)
 
-    nama_ujian = $("#select-paket option[value='"+selected_jadwal_ujian_id+"']").text();
+    nama_ujian = $("#select-paket option[value='" + selected_jadwal_ujian_id + "']").text();
     console.log(nama_ujian)
 
     jumlah_proses = $('#jumlah_proses').val()
@@ -31,7 +37,7 @@ $('#koreksi-button').on('click', () => {
         type: 'GET',
         contentType: "application/json",
         dataType: "json",
-        url: base_url + '/api/koreksi/start/'+selected_jadwal_ujian_id+'/'+jumlah_proses,
+        url: base_url + '/api/koreksi/start/' + selected_jadwal_ujian_id + '/' + jumlah_proses,
         success: (data) => {
             console.log('masuk success')
             console.log(data)
@@ -40,7 +46,7 @@ $('#koreksi-button').on('click', () => {
 
                 $('#koreksi-alert-red').hide();
                 $('#koreksi-alert-red').html('Server koreksi sedang inaktif')
-                setTimeout(function() {
+                setTimeout(function () {
                     $('#koreksi-alert-red').show();
                 }, 200);
 
@@ -52,7 +58,7 @@ $('#koreksi-button').on('click', () => {
 
                 $('#koreksi-alert').hide();
                 $('#koreksi-alert').html('Sedang melakukan koreksi pada ' + nama_ujian.slice(0, -3))
-                setTimeout(function() {
+                setTimeout(function () {
                     $('#koreksi-alert').show();
                 }, 200);
             }
@@ -94,19 +100,19 @@ $('#refresh-button').on('click', () => {
 
 const GetSiswa = async (body) => {
     const response = fetch(base_url + '/api/siswa-paket', {
-        method: 'POST',
-        body: JSON.stringify(body),
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    })
-    .then((response) => response.json())
-    .then((responseJSON) => {
-       console.log(responseJSON)
-    })
-    .catch((err) => {
-        console.log(err)
-    })
+            method: 'POST',
+            body: JSON.stringify(body),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then((response) => response.json())
+        .then((responseJSON) => {
+            console.log(responseJSON)
+        })
+        .catch((err) => {
+            console.log(err)
+        })
 }
 
 const GetElapsedKoreksiTime = async (ujian_id, ujian_nama) => {
@@ -120,7 +126,7 @@ const GetElapsedKoreksiTime = async (ujian_id, ujian_nama) => {
             if (data.success) {
                 $('#koreksi-alert').hide();
                 $('#koreksi-alert').html('Sedang melakukan koreksi pada ' + ujian_nama.slice(0, -3) + ', dimulai ' + data.data.elapsed_time_minutes + ' menit yang lalu')
-                setTimeout(function() {
+                setTimeout(function () {
                     $('#koreksi-alert').show();
                 }, 200);
             }
