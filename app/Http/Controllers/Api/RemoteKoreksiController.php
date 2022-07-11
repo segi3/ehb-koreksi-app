@@ -37,11 +37,11 @@ class RemoteKoreksiController extends Controller
 
     public function StartRemoteKoreksi($jadwal_ujian_id) {
 
-        if (!$this->_testConnection()) {
-            return new GenericResponse(false, ResponseStatus::INTERNAL_SERVER_ERROR()->value, [
-                'inactive' => true
-            ]);
-        }
+        // if (!$this->_testConnection()) {
+        //     return new GenericResponse(false, ResponseStatus::INTERNAL_SERVER_ERROR()->value, [
+        //         'inactive' => true
+        //     ]);
+        // }
 
         $stateData = StateKoreksi::updateOrCreate([
             'jadwal_ujian_id' => $jadwal_ujian_id
