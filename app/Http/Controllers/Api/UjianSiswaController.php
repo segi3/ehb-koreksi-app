@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\User;
 use App\Models\UjianSiswa;
 use App\Models\JadwalUjian;
+use App\Models\KoreksiSummary;
 
 use App\Enums\StateKoreksi;
 use App\Enums\ResponseStatus;
@@ -45,10 +46,18 @@ class UjianSiswaController extends Controller
     }
 
     public function KoreksiSummary() {
+        $summ = KoreksiSummary::all()->toArray();
+
+        return new GenericResponse(true, ResponseStatus::SUCCESS()->value, $summ);
+    }
+
+    public function KoreksiSummaryRefresh() {
         $count = UjianSiswa::UjianKoreksiCount()->get()->toArray();
         $ujian = JadwalUjian::UjianSiswaByUjianID()->get();
 
         $response = [];
+
+        KoreksiSummary::truncate();
 
         foreach($count as $c) {
             $tmp = [];
@@ -63,11 +72,30 @@ class UjianSiswaController extends Controller
                 $tmp['nama_ujian'] = 'not_found';
             }
 
+            // sample string: PEMINATAN | Geografi | IPS | 2013 | UTAMA | 1
+            $desc_arr = explode(" | ", $tmp['nama_ujian']);
+
             $tmp['jadwal_ujian_id'] = $c->jadwal_ujian_id;
             $tmp['done'] = $c->done;
             $tmp['not_done'] = $c->not_done;
 
+            $tmp['mata_pelajaran'] = $desc_arr[1];
+            $tmp['jurusan'] = $desc_arr[2];
+            $tmp['jenis'] = $desc_arr[0];
+            $tmp['sesi'] = $desc_arr[5];
+
             array_push($response, $tmp);
+
+            KoreksiSummary::create([
+                'jadwal_ujian_id' => $tmp['jadwal_ujian_id'],
+                'nama_ujian' => $tmp['nama_ujian'],
+                'done' => $tmp['done'],
+                'not_done' => $tmp['not_done'],
+                'jurusan' => $desc_arr[2],
+                'jenis' => $desc_arr[0],
+                'sesi' => $desc_arr[5],
+                'mata_pelajaran' => $desc_arr[1]
+            ]);
         }
 
         return new GenericResponse(true, ResponseStatus::SUCCESS()->value, $response);

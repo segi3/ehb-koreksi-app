@@ -28,6 +28,7 @@ Route::get('/is-any-onprogress', [App\Http\Controllers\Api\JadwalUjianController
 Route::get('/active-jadwal', [App\Http\Controllers\Api\JadwalUjianController::class, 'GetActiveUjian']);
 
 Route::get('/koreksi/summary', [App\Http\Controllers\Api\UjianSiswaController::class, 'KoreksiSummary']);
+Route::get('/koreksi/summary/refresh', [App\Http\Controllers\Api\UjianSiswaController::class, 'KoreksiSummaryRefresh']);
 
 Route::get('/koreksi/start/{jadwal_ujian_id}', [App\Http\Controllers\Api\RemoteKoreksiController::class, 'StartRemoteKoreksi']);
 Route::get('/koreksi/finish/{jadwal_ujian_id}/{state}', [App\Http\Controllers\Api\RemoteKoreksiController::class, 'FinishHookRemoteKoreksi']);
