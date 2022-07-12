@@ -6,7 +6,7 @@ const annotation1 = {
     borderWidth: 3,
     label: {
         enabled: true,
-        backgroundColor: 'rgb(100, 149, 237)',
+        backgroundColor: 'rgba(201, 203, 207, 0.9)',
         content: (ctx) => 'Rata-rata total: ' + average(ctx).toFixed(2)
     },
     scaleID: 'y',
@@ -21,7 +21,7 @@ const annotation2 = {
     borderWidth: 3,
     label: {
         enabled: true,
-        backgroundColor: 'rgba(102, 102, 102, 0.5)',
+        backgroundColor: 'rgba(201, 203, 207, 0.9)',
         color: 'black',
         content: (ctx) => (average(ctx) + standardDeviation(ctx)).toFixed(2),
         position: 'start',
@@ -40,7 +40,7 @@ const annotation3 = {
     borderWidth: 3,
     label: {
         enabled: true,
-        backgroundColor: 'rgba(102, 102, 102, 0.5)',
+        backgroundColor: 'rgba(201, 203, 207, 0.9)',
         color: 'black',
         content: (ctx) => (average(ctx) - standardDeviation(ctx)).toFixed(2),
         position: 'end',
@@ -91,7 +91,7 @@ function NewAverageChart(labels, data) {
     ResetChartCanvas()
     const ctx = document.getElementById('agregasichart').getContext('2d');
     const config = {
-        type: 'line',
+        type: 'bar',
         data: {
             labels: labels,
             datasets: [{
@@ -99,7 +99,7 @@ function NewAverageChart(labels, data) {
                 data: data,
                 fill: false,
                 borderColor: "rgba(220,220,220,1)",
-                backgroundColor: "rgba(220,220,220,1)",
+                backgroundColor: 'rgb(100, 149, 237)',
                 borderWidth: 1,
                 pointStyle: 'rectRot',
                 pointRadius: 5,
@@ -113,6 +113,10 @@ function NewAverageChart(labels, data) {
                 }
             },
             plugins: {
+                title: {
+                    display: true,
+                    text: 'Rata Rata Nilai Per Rayon'
+                },
                 annotation: {
                     annotations: {
                         annotation1,
