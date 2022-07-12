@@ -40,6 +40,8 @@ Route::post('/agregasi', [App\Http\Controllers\Api\AgregasiController::class, 'S
 Route::get('/agregasi/rayon/{kd_rayon}', [App\Http\Controllers\Api\AgregasiController::class, 'ShowAgregasiRayon']);
 Route::get('/agregasi/rayon/semua/nokd', [App\Http\Controllers\Api\AgregasiController::class, 'ShowAgregasiRayonNoKD']);
 Route::get('/agregasi/rayon/{rayon_kd}/sekolah/{sekolah_id}', [App\Http\Controllers\Api\AgregasiController::class, 'ShowAgregasiSekolah']);
+Route::get('/agregasi/rayon/{rayon_kd}/sekolah/semua/nosk', [App\Http\Controllers\Api\AgregasiController::class, 'ShowAgregasiSekolahNoKd']);
+
 
 Route::get('/active-kab-kota', [App\Http\Controllers\Api\KabKotaController::class, 'GetActiveKabKota']);
 Route::get('/sekolah/rayon/{kd_rayon}', [App\Http\Controllers\Api\SekolahController::class, 'GetSekolahOnRayon']);

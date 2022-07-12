@@ -95,11 +95,26 @@ const UpdateTable = async (selected_sekolah) => {
             ujian_datatable.rows.add(data.data)
             ujian_datatable.draw()
 
-            // const result = PrepareChartData(data.data)
+            if (selected_sekolah != 'semua') { // karena semua di grup by rayon
+                const res = PrepareStackedBarData(data.data)
+                NewStackedAgregasiBar(res.min, res.mean, res.max, res.label)
+            } else {
+                $.ajax({
+                    type: 'GET',
+                    url: base_url + '/api/agregasi/rayon/'+ KD_RAYON +'/sekolah/semua/nosk',
+                    success: (data) => {
 
-            // NewAverageChart(result.chart.chart_labels, result.chart.chart_data)
-            // NewPredikatChart(result.pie.pie_labels, result.pie.pie_data)
+                        ujian_datatable.rows.add(data.data)
+                        ujian_datatable.draw()
 
+                        const res = PrepareStackedBarData(data.data)
+                        NewStackedAgregasiBar(res.min, res.mean, res.max, res.label)
+                    },
+                    error: (err) => {
+                        console.log(err)
+                    }
+                })
+            }
         },
         error: (err) => {
             console.log(err)
@@ -173,6 +188,36 @@ const PrepareChartData = (raw) => {
             pie_labels: pie_labels,
             pie_data: pie_data
         }
+    }
+
+    return res
+}
+
+
+const PrepareStackedBarData = (data) => {
+
+    // sorty by name
+    data.sort((a, b) => {
+        return a.nama.localeCompare(b.nama)
+    })
+
+    var min = []
+    var mean = []
+    var max = []
+    var label = []
+
+    data.forEach(el => {
+        min.push(el.min)
+        max.push(el.max)
+        mean.push(el.avg)
+        label.push(el.nama)
+    })
+
+    const res = {
+        min: min,
+        max: max,
+        mean: mean,
+        label: label
     }
 
     return res

@@ -118,8 +118,8 @@ const UpdateTable = async (selected_kd_rayon) => {
                     url: base_url + '/api/agregasi/rayon/semua/nokd',
                     success: (data) => {
 
-                        ujian_datatable.rows.add(data.data)
-                        ujian_datatable.draw()
+                        // ujian_datatable.rows.add(data.data)
+                        // ujian_datatable.draw()
 
                         const res = PrepareStackedBarData(data.data)
                         NewStackedAgregasiBar(res.min, res.mean, res.max, res.label)
@@ -129,7 +129,6 @@ const UpdateTable = async (selected_kd_rayon) => {
                     }
                 })
             }
-
         },
         error: (err) => {
             console.log(err)

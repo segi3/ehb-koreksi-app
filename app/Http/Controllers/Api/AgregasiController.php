@@ -68,7 +68,7 @@ class AgregasiController extends Controller
                 ->join('paket', 'paket.id', 'ujian_siswa.paket_id')
                 ->where('rayon_nama', '!=', 'null')
                 ->where('rayon_kd', $rayon_kd)
-                ->groupBy('rayon_kd', 'paket_id')
+                ->groupBy('sekolah_id', 'paket_id')
                 ->get();
         } else {
             $agg = DB::table('ujian_siswa')
@@ -77,9 +77,21 @@ class AgregasiController extends Controller
                 ->where('rayon_nama', '!=', 'null')
                 ->where('rayon_kd', $rayon_kd)
                 ->where('sekolah_id', $sekolah_id)
-                ->groupBy('rayon_kd', 'paket_id')
+                ->groupBy('sekolah_id', 'paket_id')
                 ->get();
         }
+
+        return new GenericResponse(true, ResponseStatus::SUCCESS()->value, $agg);
+    }
+
+    public function ShowAgregasiSekolahNoKd($rayon_kd) {
+        $agg = DB::table('ujian_siswa')
+            ->selectRaw('sekolah_nama, sekolah_id, avg(jumlah_benar)/JSON_LENGTH(random_soal)*100 as avg, min(jumlah_benar)/JSON_LENGTH(random_soal)*100 as min, max(jumlah_benar)/JSON_LENGTH(random_soal)*100 as max, paket.nama, rayon_nama')
+            ->join('paket', 'paket.id', 'ujian_siswa.paket_id')
+            ->where('rayon_nama', '!=', 'null')
+            ->where('rayon_kd', $rayon_kd)
+            ->groupBy('paket_id')
+            ->get();
 
         return new GenericResponse(true, ResponseStatus::SUCCESS()->value, $agg);
     }
