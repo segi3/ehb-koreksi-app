@@ -38,11 +38,8 @@
     <div id="graph-container">
         <div class="card">
             <div class="card-body row">
-                <div class="col-lg-8" id="chart-container">
+                <div class="col-lg-12" id="chart-container">
                     <canvas id="agregasichart"></canvas>
-                </div>
-                <div class="col-lg-4" id="pie-container">
-                    <canvas id="piechart"></canvas>
                 </div>
             </div>
         </div>
@@ -119,10 +116,23 @@
             tableUjian.rows.add(data.data)
             tableUjian.draw()
 
-            // const result = PrepareChartData(data.data)
+            if (selected_kd_rayon != 'semua') { // karena semua di grup by rayon
+                const res = PrepareStackedBarData(data.data)
+                NewStackedAgregasiBar(res.min, res.mean, res.max, res.label)
+            } else {
+                $.ajax({
+                    type: 'GET',
+                    url: base_url + '/api/agregasi/rayon/semua/nokd',
+                    success: (data) => {
 
-            // NewAverageChart(result.chart.chart_labels, result.chart.chart_data)
-            // NewPredikatChart(result.pie.pie_labels, result.pie.pie_data)
+                        const res = PrepareStackedBarData(data.data)
+                        NewStackedAgregasiBar(res.min, res.mean, res.max, res.label)
+                    },
+                    error: (err) => {
+                        console.log(err)
+                    }
+                })
+            }
 
         },
         error: (err) => {

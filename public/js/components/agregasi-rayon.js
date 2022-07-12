@@ -7,12 +7,12 @@ $('#rayon-selector').on('change', function () {
 
     // $('#download-form').attr('action', base_url + '/export/agregasi-ujian/' + selected_jadwal_ujian_id);
 
-    console.log(selected_kd_rayon)
+    // console.log(selected_kd_rayon)
 
     if (selected_kd_rayon == 'semua') {
+        $('#rayon-detail-button').html('Agregasi per sekolah rayon')
         $("#rayon-detail-button").prop("disabled", true)
-    }
-    else {
+    } else {
         $('#rayon-detail-button').html('Agregasi per sekolah rayon ' + nama_rayon)
         $("#rayon-detail-button").prop("disabled", false)
         $('#rayon-detail-button').attr('href', base_url + '/agregasi-hasil/rayon/' + selected_kd_rayon);
@@ -82,7 +82,7 @@ const GetHasilAgregasi = async (selected_kd_rayon) => {
 
 const UpdateTable = async (selected_kd_rayon) => {
 
-    console.log('update table')
+    // console.log('update table')
 
     var ujian_datatable = $('#agregasi_table').DataTable({
         retrieve: true
@@ -97,7 +97,7 @@ const UpdateTable = async (selected_kd_rayon) => {
     msg.setAttribute("colspan", "100")
     msg.setAttribute('style', 'text-align:center;')
     row.append(msg)
-    $('#ujian_siswa_table').append(row);
+    $('#agregasi_table').append(row);
 
     // -----
 
@@ -109,10 +109,26 @@ const UpdateTable = async (selected_kd_rayon) => {
             ujian_datatable.rows.add(data.data)
             ujian_datatable.draw()
 
-            // const result = PrepareChartData(data.data)
+            if (selected_kd_rayon != 'semua') { // karena semua di grup by rayon
+                const res = PrepareStackedBarData(data.data)
+                NewStackedAgregasiBar(res.min, res.mean, res.max, res.label)
+            } else {
+                $.ajax({
+                    type: 'GET',
+                    url: base_url + '/api/agregasi/rayon/semua/nokd',
+                    success: (data) => {
 
-            // NewAverageChart(result.chart.chart_labels, result.chart.chart_data)
-            // NewPredikatChart(result.pie.pie_labels, result.pie.pie_data)
+                        ujian_datatable.rows.add(data.data)
+                        ujian_datatable.draw()
+
+                        const res = PrepareStackedBarData(data.data)
+                        NewStackedAgregasiBar(res.min, res.mean, res.max, res.label)
+                    },
+                    error: (err) => {
+                        console.log(err)
+                    }
+                })
+            }
 
         },
         error: (err) => {
@@ -121,72 +137,30 @@ const UpdateTable = async (selected_kd_rayon) => {
     })
 }
 
-function GetStandardDeviation(array) {
-    const n = array.length
-    const mean = array.reduce((a, b) => a + b) / n
-    return Math.sqrt(array.map(x => Math.pow(x - mean, 2)).reduce((a, b) => a + b) / n)
-}
+const PrepareStackedBarData = (data) => {
 
-const PrepareChartData = (raw) => {
-    var generalData = raw
-    var detailsData = raw.data
+    // sorty by name
+    data.sort((a, b) => {
+        return a.nama.localeCompare(b.nama)
+    })
 
-    var labels = []
-    var labels_avg = {}
+    var min = []
+    var mean = []
+    var max = []
+    var label = []
 
-    // group data per rayon
-    detailsData.forEach(el => {
+    data.forEach(el => {
+        min.push(el.min)
+        max.push(el.max)
+        mean.push(el.avg)
+        label.push(el.nama)
+    })
 
-        var rayon = el.rayon_nama
-
-        if (labels.indexOf(el.rayon_nama) === -1) {
-            labels.push(el.rayon_nama)
-            labels_avg[rayon] = []
-        }
-
-        labels_avg[rayon].push(el.avg)
-    });
-
-    // cari avg per rayon
-    labels = []
-    var averages = []
-
-    for (let key in labels_avg) {
-        let total = 0
-        for (var i = 0; i < labels_avg[key].length; i++) {
-            total += labels_avg[key][i]
-        }
-        const avg = total / labels_avg[key].length;
-
-        labels.push(key)
-        averages.push(avg)
-    }
-
-    // sd, min, max
-    const standar_deviasi = GetStandardDeviation(averages)
-    const total_min = generalData.total_min
-    const total_max = generalData.total_max
-
-    // pie data
-    var pie_labels = []
-    var pie_data = []
-
-    for (let key in generalData.predikat) {
-        if (key == 'n') continue
-        pie_labels.push(key)
-        pie_data.push(generalData.predikat[key])
-    }
-
-    // final object
     const res = {
-        chart: {
-            chart_labels: labels,
-            chart_data: averages,
-        },
-        pie: {
-            pie_labels: pie_labels,
-            pie_data: pie_data
-        }
+        min: min,
+        max: max,
+        mean: mean,
+        label: label
     }
 
     return res

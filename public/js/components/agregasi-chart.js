@@ -199,3 +199,54 @@ function NewPredikatChart(labels, data) {
 
     const myChart = new Chart(ctx, config);
 };
+
+const NewStackedAgregasiBar = (min, mean, max, label) => {
+    ResetChartCanvas()
+
+    $('#graph-container').show()
+    console.log('creating graph')
+    const ctx = document.getElementById('agregasichart').getContext('2d');
+
+    const labels = label;
+    const data = {
+        labels: labels,
+        datasets: [{
+                label: 'Terendah',
+                data: min,
+                backgroundColor: 'rgb(255,57,36)',
+            },
+            {
+                label: 'Rata-Rata',
+                data: mean,
+                backgroundColor: 'rgb(117, 221, 221)',
+            },
+            {
+                label: 'Tertinggi',
+                data: max,
+                backgroundColor: 'rgb(44,229,116)',
+            },
+        ]
+    };
+    const config = {
+        type: 'bar',
+        data: data,
+        options: {
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Agregasi Hasil Ujian'
+                },
+            },
+            responsive: true,
+            scales: {
+                x: {
+                    stacked: true,
+                },
+                y: {
+                    stacked: true
+                }
+            }
+        }
+    };
+    const myChart = new Chart(ctx, config);
+}

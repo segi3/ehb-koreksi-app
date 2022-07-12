@@ -9,6 +9,7 @@ $('#sekolah-selector').on('change', function () {
     console.log(selected_sekolah)
 
     GetHasilAgregasi(selected_sekolah)
+
 });
 
 $('#download-button').on('click', () => {
