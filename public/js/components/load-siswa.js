@@ -20,14 +20,14 @@ $('#paket-selector').on('change', function () {
 });
 
 $('#koreksi-button').on('click', () => {
+    jumlah_proses = $('#jumlah_proses').val()
+    console.log('jumlah proses: ' + jumlah_proses)
+
     selected_jadwal_ujian_id = $('#select-paket').find(':selected').val()
-    console.log(base_url + '/api/koreksi/start/' + selected_jadwal_ujian_id)
+    console.log(base_url + '/api/koreksi/start/' + selected_jadwal_ujian_id + '/' + jumlah_proses)
 
     nama_ujian = $("#select-paket option[value='" + selected_jadwal_ujian_id + "']").text();
     console.log(nama_ujian)
-
-    jumlah_proses = $('#jumlah_proses').val()
-    console.log(jumlah_proses)
 
     var ujian_datatable = $('#ujian_siswa_table').DataTable({
         retrieve: true
