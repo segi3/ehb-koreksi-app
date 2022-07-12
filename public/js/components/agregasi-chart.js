@@ -147,11 +147,11 @@ function NewPredikatChart(labels, data) {
                 label: 'Rata-rata per rayon',
                 data: data,
                 backgroundColor: [
-                    'rgb(255, 99, 132)',
-                    'rgb(54, 162, 235)',
-                    'rgb(255, 205, 86)',
-                    'rgb(69, 54, 86)',
-                    'rgb(96, 33, 86)'
+                    'rgb(44,229,116)',
+                    'rgb(205,240,58)',
+                    'rgb(255,229,0)',
+                    'rgb(255,150,0)',
+                    'rgb(255,57,36)'
                 ],
                 hoverOffset: 0
             }]
@@ -164,9 +164,33 @@ function NewPredikatChart(labels, data) {
                 },
                 legend: {
                     position: 'bottom'
+                },
+                datalabels: {
+                    anchor: "end",
+                    backgroundColor: function (context) {
+                        return context.dataset.backgroundColor;
+                    },
+                    display: function (ctx) {
+                        return ctx.chart.width > 256
+                    },
+                    borderColor: "white",
+                    borderRadius: 16,
+                    borderWidth: 2,
+                    color: "white",
+                    padding: 6,
+                    formatter: (value, ctx) => {
+                        let sum = 0;
+                        let dataArr = ctx.chart.data.datasets[0].data;
+                        dataArr.map(data => {
+                            sum += data;
+                        });
+                        let percentage = (value*100 / sum).toFixed(2)+"%";
+                        return percentage;
+                      },
                 }
             }
-        }
+        },
+        plugins: [ChartDataLabels]
     };
 
     const myChart = new Chart(ctx, config);

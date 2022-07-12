@@ -173,13 +173,48 @@ const InsertPieCharts = (paket_data) => {
                         paket_data[i].jumlah_benar, paket_data[i].jumlah_salah, paket_data[i].jumlah_kosong
                     ],
                     backgroundColor: [
-                        'rgb(54, 162, 235)',
-                        'rgb(255, 99, 132)',
-                        'rgb(255, 205, 86)',
+                        'rgb(44,229,116)',
+                        'rgb(255,57,36)',
+                        'rgb(58, 68, 84)',
                     ],
                     hoverOffset: 4
                 }]
-            }
+            },
+            options: {
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Jumlah Predikat Ujian'
+                    },
+                    legend: {
+                        position: 'bottom'
+                    },
+                    datalabels: {
+                        anchor: "end",
+                        backgroundColor: function (context) {
+                            return context.dataset.backgroundColor;
+                        },
+                        display: function (ctx) {
+                            return ctx.chart.width > 256
+                        },
+                        borderColor: "white",
+                        borderRadius: 16,
+                        borderWidth: 2,
+                        color: "white",
+                        padding: 6,
+                        formatter: (value, ctx) => {
+                            let sum = 0;
+                            let dataArr = ctx.chart.data.datasets[0].data;
+                            dataArr.map(data => {
+                                sum += data;
+                            });
+                            let percentage = (value*100 / sum).toFixed(2)+"%";
+                            return percentage;
+                        },
+                    }
+                }
+            },
+            plugins: [ChartDataLabels]
         }
 
         const myChart = new Chart(ctx, config)
