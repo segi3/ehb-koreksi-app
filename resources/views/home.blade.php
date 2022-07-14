@@ -19,7 +19,7 @@
         <div class="row" id="summary-container">
 
             <div class="col-lg-12 d-flex justify-content-center summary-header">
-                <div class="col-lg-6">
+                <div class="col-lg-4">
                     Mata Pelajaran
                 </div>
                 <div class="col-lg-2 d-flex justify-content-end">
@@ -28,6 +28,7 @@
                 <div class="col-lg-2 d-flex justify-content-end">
                     Siswa Belum Dikoreksi
                 </div>
+                <div class="col-lg-2"></div>
             </div>
 
 
@@ -179,9 +180,11 @@
                         '<div class="mt-3 col-lg-12 d-flex justify-content-center"><h5 style="font-weight: 1000;">' +
                         'UMUM' + '</h5></div>')
                     sorted.UMUM.forEach(el => {
+
+                    if(el.not_done > 0) {
                         $('#summary-container').append(
                             '<div class="col-lg-12 d-flex justify-content-center">' +
-                            '<div class="col-lg-6">' +
+                            '<div class="col-lg-4">' +
                             el.mata_pelajaran + ': Sesi ' + el.sesi +
                             '</div>' +
                             '<div class="col-lg-2 d-flex justify-content-end">' +
@@ -190,8 +193,27 @@
                             '<div class="col-lg-2 d-flex justify-content-end">' +
                             thousands(el.not_done) +
                             '</div>' +
+                            '<div class="col-lg-2 d-flex justify-content-end">' +
+                            '<a class="btn btn-secondary" href="http://127.0.0.1:8000/koreksi?jadwal_ujian_id='+el.jadwal_ujian_id+'">Koreksi</a>' +
+                            '</div>' +
                             '</div>'
                         );
+                    } else {
+                        $('#summary-container').append(
+                            '<div class="col-lg-12 d-flex justify-content-center">' +
+                            '<div class="col-lg-4">' +
+                            el.mata_pelajaran + ': Sesi ' + el.sesi +
+                            '</div>' +
+                            '<div class="col-lg-2 d-flex justify-content-end">' +
+                            thousands(el.done) +
+                            '</div>' +
+                            '<div class="col-lg-2 d-flex justify-content-end">' +
+                            thousands(el.not_done) +
+                            '</div>' +
+                            '<div class="col-lg-2"></div>' +
+                            '</div>'
+                        );
+                    }
                     });
 
                     sorted.MIPA.sort((a, b) => {
@@ -203,9 +225,11 @@
                         '<div class="mt-3 col-lg-12 d-flex justify-content-center"><h5 style="font-weight: 1000;">' +
                         'MIPA' + '</h5></div>')
                     sorted.MIPA.forEach(el => {
+
+                    if(el.not_done > 0) {
                         $('#summary-container').append(
                             '<div class="col-lg-12 d-flex justify-content-center">' +
-                            '<div class="col-lg-6">' +
+                            '<div class="col-lg-4">' +
                             el.mata_pelajaran + ': Sesi ' + el.sesi +
                             '</div>' +
                             '<div class="col-lg-2 d-flex justify-content-end">' +
@@ -214,8 +238,27 @@
                             '<div class="col-lg-2 d-flex justify-content-end">' +
                             thousands(el.not_done) +
                             '</div>' +
+                            '<div class="col-lg-2 d-flex justify-content-end">' +
+                            '<a class="btn btn-secondary" href="http://127.0.0.1:8000/koreksi?jadwal_ujian_id='+el.jadwal_ujian_id+'">Koreksi</a>' +
+                            '</div>' +
                             '</div>'
                         );
+                    } else {
+                        $('#summary-container').append(
+                            '<div class="col-lg-12 d-flex justify-content-center">' +
+                            '<div class="col-lg-4">' +
+                            el.mata_pelajaran + ': Sesi ' + el.sesi +
+                            '</div>' +
+                            '<div class="col-lg-2 d-flex justify-content-end">' +
+                            thousands(el.done) +
+                            '</div>' +
+                            '<div class="col-lg-2 d-flex justify-content-end">' +
+                            thousands(el.not_done) +
+                            '</div>' +
+                            '<div class="col-lg-2"></div>' +
+                            '</div>'
+                        );
+                    }
                     });
 
                     sorted.IPS.sort((a, b) => {
@@ -227,9 +270,11 @@
                         '<div class="mt-3 col-lg-12 d-flex justify-content-center"><h5 style="font-weight: 1000;">' +
                         'IPS' + '</h5></div>')
                     sorted.IPS.forEach(el => {
+
+                    if(el.not_done > 0) {
                         $('#summary-container').append(
                             '<div class="col-lg-12 d-flex justify-content-center">' +
-                            '<div class="col-lg-6">' +
+                            '<div class="col-lg-4">' +
                             el.mata_pelajaran + ': Sesi ' + el.sesi +
                             '</div>' +
                             '<div class="col-lg-2 d-flex justify-content-end">' +
@@ -238,8 +283,27 @@
                             '<div class="col-lg-2 d-flex justify-content-end">' +
                             thousands(el.not_done) +
                             '</div>' +
+                            '<div class="col-lg-2 d-flex justify-content-end">' +
+                            '<a class="btn btn-secondary" href="http://127.0.0.1:8000/koreksi?jadwal_ujian_id='+el.jadwal_ujian_id+'">Koreksi</a>' +
+                            '</div>' +
                             '</div>'
                         );
+                    } else {
+                        $('#summary-container').append(
+                            '<div class="col-lg-12 d-flex justify-content-center">' +
+                            '<div class="col-lg-4">' +
+                            el.mata_pelajaran + ': Sesi ' + el.sesi +
+                            '</div>' +
+                            '<div class="col-lg-2 d-flex justify-content-end">' +
+                            thousands(el.done) +
+                            '</div>' +
+                            '<div class="col-lg-2 d-flex justify-content-end">' +
+                            thousands(el.not_done) +
+                            '</div>' +
+                            '<div class="col-lg-2"></div>' +
+                            '</div>'
+                        );
+                    }
                     });
 
                     sorted.BAHASA.sort((a, b) => {
@@ -251,9 +315,11 @@
                         '<div class="mt-3 col-lg-12 d-flex justify-content-center"><h5 style="font-weight: 1000;">' +
                         'BAHASA' + '</h5></div>')
                     sorted.BAHASA.forEach(el => {
+
+                    if(el.not_done > 0) {
                         $('#summary-container').append(
                             '<div class="col-lg-12 d-flex justify-content-center">' +
-                            '<div class="col-lg-6">' +
+                            '<div class="col-lg-4">' +
                             el.mata_pelajaran + ': Sesi ' + el.sesi +
                             '</div>' +
                             '<div class="col-lg-2 d-flex justify-content-end">' +
@@ -262,8 +328,28 @@
                             '<div class="col-lg-2 d-flex justify-content-end">' +
                             thousands(el.not_done) +
                             '</div>' +
+                            '<div class="col-lg-2 d-flex justify-content-end">' +
+                            '<a class="btn btn-secondary" href="http://127.0.0.1:8000/koreksi?jadwal_ujian_id='+el.jadwal_ujian_id+'">Koreksi</a>' +
+
+                            '</div>' +
                             '</div>'
                         );
+                    } else {
+                        $('#summary-container').append(
+                            '<div class="col-lg-12 d-flex justify-content-center">' +
+                            '<div class="col-lg-4">' +
+                            el.mata_pelajaran + ': Sesi ' + el.sesi +
+                            '</div>' +
+                            '<div class="col-lg-2 d-flex justify-content-end">' +
+                            thousands(el.done) +
+                            '</div>' +
+                            '<div class="col-lg-2 d-flex justify-content-end">' +
+                            thousands(el.not_done) +
+                            '</div>' +
+                            '<div class="col-lg-2"></div>' +
+                            '</div>'
+                        );
+                    }
                     });
 
                     $('#loader-container').remove()
@@ -302,19 +388,42 @@
                     '<div class="mt-3 col-lg-12 d-flex justify-content-center"><h5 style="font-weight: 1000;">' +
                     'UMUM' + '</h5></div>')
                 sorted.UMUM.forEach(el => {
-                    $('#summary-container').append(
-                        '<div class="col-lg-12 d-flex justify-content-center">' +
-                        '<div class="col-lg-6">' +
-                        el.mata_pelajaran + ': Sesi ' + el.sesi +
-                        '</div>' +
-                        '<div class="col-lg-2 d-flex justify-content-end">' +
-                        thousands(el.done) +
-                        '</div>' +
-                        '<div class="col-lg-2 d-flex justify-content-end">' +
-                        thousands(el.not_done) +
-                        '</div>' +
-                        '</div>'
-                    );
+
+                    if(el.not_done > 0) {
+                        $('#summary-container').append(
+                            '<div class="col-lg-12 d-flex justify-content-center">' +
+                            '<div class="col-lg-4">' +
+                            el.mata_pelajaran + ': Sesi ' + el.sesi +
+                            '</div>' +
+                            '<div class="col-lg-2 d-flex justify-content-end">' +
+                            thousands(el.done) +
+                            '</div>' +
+                            '<div class="col-lg-2 d-flex justify-content-end">' +
+                            thousands(el.not_done) +
+                            '</div>' +
+                            '<div class="col-lg-2 d-flex justify-content-end">' +
+                            '<a class="btn btn-secondary" href="http://127.0.0.1:8000/koreksi?jadwal_ujian_id='+el.jadwal_ujian_id+'">Koreksi</a>' +
+                            '</div>' +
+                            '</div>'
+                        );
+                    } else {
+                        $('#summary-container').append(
+                            '<div class="col-lg-12 d-flex justify-content-center">' +
+                            '<div class="col-lg-4">' +
+                            el.mata_pelajaran + ': Sesi ' + el.sesi +
+                            '</div>' +
+                            '<div class="col-lg-2 d-flex justify-content-end">' +
+                            thousands(el.done) +
+                            '</div>' +
+                            '<div class="col-lg-2 d-flex justify-content-end">' +
+                            thousands(el.not_done) +
+                            '</div>' +
+                            '<div class="col-lg-2"></div>' +
+                            '</div>'
+                        );
+                    }
+
+
                 });
 
                 sorted.MIPA.sort((a, b) => {
@@ -326,19 +435,39 @@
                     '<div class="mt-3 col-lg-12 d-flex justify-content-center"><h5 style="font-weight: 1000;">' +
                     'MIPA' + '</h5></div>')
                 sorted.MIPA.forEach(el => {
-                    $('#summary-container').append(
-                        '<div class="col-lg-12 d-flex justify-content-center">' +
-                        '<div class="col-lg-6">' +
-                        el.mata_pelajaran + ': Sesi ' + el.sesi +
-                        '</div>' +
-                        '<div class="col-lg-2 d-flex justify-content-end">' +
-                        thousands(el.done) +
-                        '</div>' +
-                        '<div class="col-lg-2 d-flex justify-content-end">' +
-                        thousands(el.not_done) +
-                        '</div>' +
-                        '</div>'
-                    );
+                    if(el.not_done > 0) {
+                        $('#summary-container').append(
+                            '<div class="col-lg-12 d-flex justify-content-center">' +
+                            '<div class="col-lg-4">' +
+                            el.mata_pelajaran + ': Sesi ' + el.sesi +
+                            '</div>' +
+                            '<div class="col-lg-2 d-flex justify-content-end">' +
+                            thousands(el.done) +
+                            '</div>' +
+                            '<div class="col-lg-2 d-flex justify-content-end">' +
+                            thousands(el.not_done) +
+                            '</div>' +
+                            '<div class="col-lg-2 d-flex justify-content-end">' +
+                            '<a class="btn btn-secondary" href="http://127.0.0.1:8000/koreksi?jadwal_ujian_id='+el.jadwal_ujian_id+'">Koreksi</a>' +
+                            '</div>' +
+                            '</div>'
+                        );
+                    } else {
+                        $('#summary-container').append(
+                            '<div class="col-lg-12 d-flex justify-content-center">' +
+                            '<div class="col-lg-4">' +
+                            el.mata_pelajaran + ': Sesi ' + el.sesi +
+                            '</div>' +
+                            '<div class="col-lg-2 d-flex justify-content-end">' +
+                            thousands(el.done) +
+                            '</div>' +
+                            '<div class="col-lg-2 d-flex justify-content-end">' +
+                            thousands(el.not_done) +
+                            '</div>' +
+                            '<div class="col-lg-2"></div>' +
+                            '</div>'
+                        );
+                    }
                 });
 
                 sorted.IPS.sort((a, b) => {
@@ -350,19 +479,39 @@
                     '<div class="mt-3 col-lg-12 d-flex justify-content-center"><h5 style="font-weight: 1000;">' +
                     'IPS' + '</h5></div>')
                 sorted.IPS.forEach(el => {
-                    $('#summary-container').append(
-                        '<div class="col-lg-12 d-flex justify-content-center">' +
-                        '<div class="col-lg-6">' +
-                        el.mata_pelajaran + ': Sesi ' + el.sesi +
-                        '</div>' +
-                        '<div class="col-lg-2 d-flex justify-content-end">' +
-                        thousands(el.done) +
-                        '</div>' +
-                        '<div class="col-lg-2 d-flex justify-content-end">' +
-                        thousands(el.not_done) +
-                        '</div>' +
-                        '</div>'
-                    );
+                    if(el.not_done > 0) {
+                        $('#summary-container').append(
+                            '<div class="col-lg-12 d-flex justify-content-center">' +
+                            '<div class="col-lg-4">' +
+                            el.mata_pelajaran + ': Sesi ' + el.sesi +
+                            '</div>' +
+                            '<div class="col-lg-2 d-flex justify-content-end">' +
+                            thousands(el.done) +
+                            '</div>' +
+                            '<div class="col-lg-2 d-flex justify-content-end">' +
+                            thousands(el.not_done) +
+                            '</div>' +
+                            '<div class="col-lg-2 d-flex justify-content-end">' +
+                            '<a class="btn btn-secondary" href="http://127.0.0.1:8000/koreksi?jadwal_ujian_id='+el.jadwal_ujian_id+'">Koreksi</a>' +
+                            '</div>' +
+                            '</div>'
+                        );
+                    } else {
+                        $('#summary-container').append(
+                            '<div class="col-lg-12 d-flex justify-content-center">' +
+                            '<div class="col-lg-4">' +
+                            el.mata_pelajaran + ': Sesi ' + el.sesi +
+                            '</div>' +
+                            '<div class="col-lg-2 d-flex justify-content-end">' +
+                            thousands(el.done) +
+                            '</div>' +
+                            '<div class="col-lg-2 d-flex justify-content-end">' +
+                            thousands(el.not_done) +
+                            '</div>' +
+                            '<div class="col-lg-2"></div>' +
+                            '</div>'
+                        );
+                    }
                 });
 
                 sorted.BAHASA.sort((a, b) => {
@@ -374,19 +523,39 @@
                     '<div class="mt-3 col-lg-12 d-flex justify-content-center"><h5 style="font-weight: 1000;">' +
                     'BAHASA' + '</h5></div>')
                 sorted.BAHASA.forEach(el => {
-                    $('#summary-container').append(
-                        '<div class="col-lg-12 d-flex justify-content-center">' +
-                        '<div class="col-lg-6">' +
-                        el.mata_pelajaran + ': Sesi ' + el.sesi +
-                        '</div>' +
-                        '<div class="col-lg-2 d-flex justify-content-end">' +
-                        thousands(el.done) +
-                        '</div>' +
-                        '<div class="col-lg-2 d-flex justify-content-end">' +
-                        thousands(el.not_done) +
-                        '</div>' +
-                        '</div>'
-                    );
+                    if(el.not_done > 0) {
+                        $('#summary-container').append(
+                            '<div class="col-lg-12 d-flex justify-content-center">' +
+                            '<div class="col-lg-4">' +
+                            el.mata_pelajaran + ': Sesi ' + el.sesi +
+                            '</div>' +
+                            '<div class="col-lg-2 d-flex justify-content-end">' +
+                            thousands(el.done) +
+                            '</div>' +
+                            '<div class="col-lg-2 d-flex justify-content-end">' +
+                            thousands(el.not_done) +
+                            '</div>' +
+                            '<div class="col-lg-2 d-flex justify-content-end">' +
+                            '<a class="btn btn-secondary" href="http://127.0.0.1:8000/koreksi?jadwal_ujian_id='+el.jadwal_ujian_id+'">Koreksi</a>' +
+                            '</div>' +
+                            '</div>'
+                        );
+                    } else {
+                        $('#summary-container').append(
+                            '<div class="col-lg-12 d-flex justify-content-center">' +
+                            '<div class="col-lg-4">' +
+                            el.mata_pelajaran + ': Sesi ' + el.sesi +
+                            '</div>' +
+                            '<div class="col-lg-2 d-flex justify-content-end">' +
+                            thousands(el.done) +
+                            '</div>' +
+                            '<div class="col-lg-2 d-flex justify-content-end">' +
+                            thousands(el.not_done) +
+                            '</div>' +
+                            '<div class="col-lg-2"></div>' +
+                            '</div>'
+                        );
+                    }
                 });
 
                 $('#loader-container').remove()
