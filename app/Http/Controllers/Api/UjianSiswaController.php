@@ -19,6 +19,7 @@ use App\Http\Resources\GenericResponse;
 
 
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class UjianSiswaController extends Controller
 {
@@ -83,6 +84,7 @@ class UjianSiswaController extends Controller
             $tmp['jurusan'] = $desc_arr[2];
             $tmp['jenis'] = $desc_arr[0];
             $tmp['sesi'] = $desc_arr[5];
+            $tmp['updated_at'] = Carbon::now()->toDateTimeString();
 
             array_push($response, $tmp);
 
@@ -94,7 +96,8 @@ class UjianSiswaController extends Controller
                 'jurusan' => $desc_arr[2],
                 'jenis' => $desc_arr[0],
                 'sesi' => $desc_arr[5],
-                'mata_pelajaran' => $desc_arr[1]
+                'mata_pelajaran' => $desc_arr[1],
+                'updated_at' => $tmp['updated_at']
             ]);
         }
 

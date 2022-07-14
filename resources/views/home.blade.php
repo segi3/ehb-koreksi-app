@@ -11,7 +11,11 @@
 <div class="card">
     <div class="card-body">
         <div class="row d-flex justify-content-end mb-3">
-            <div class="col-2">
+            <div class="col-lg-2">
+                <div style="font-size: 12px;">Terakhir diperbarui pada </div>
+                <span style="font-size: 12px;" id="last_refreshed"></span>
+            </div>
+            <div class="col-lg-2">
                 <button type="button" class="btn btn-secondary" id="refresh-button">Refresh</button>
             </div>
 
@@ -160,7 +164,7 @@
                 url: base_url + '/api/koreksi/summary/refresh',
                 success: (data) => {
 
-                    // console.log(data.data)
+                    $('#last_refreshed').html(data.data[0].updated_at)
 
                     // prep data
                     var sorted = {}
@@ -368,7 +372,7 @@
             url: base_url + '/api/koreksi/summary',
             success: (data) => {
 
-                // console.log(data.data)
+                $('#last_refreshed').html(data.data[0].updated_at)
 
                 // prep data
                 var sorted = {}
