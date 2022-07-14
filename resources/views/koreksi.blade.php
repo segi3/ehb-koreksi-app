@@ -3,52 +3,52 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <h1>Koreksi hasil ujian EHB-BKS Jawa Timur 2021</h1>
+<h1>Koreksi hasil ujian EHB-BKS Jawa Timur 2021</h1>
 @stop
 
 @section('content')
-    <p>Pilih jadwal ujian dan klik koreksi untuk memulai koreksi.</p>
+<p>Pilih jadwal ujian dan klik koreksi untuk memulai koreksi.</p>
 
-    <div class="card">
-        <div class="card-body">
-            <div class="row">
-                <div class="col-lg-2">
-                    Paket Ujian
-                </div>
-                <div class="col-lg-5" id="paket-selector">
-                    <select class="form-select" aria-label="Default select example" id="select-paket">
-                        <option selected disabled>Pilih ujian</option>
-                      </select>
-                </div>
-                <div class="offset-lg-3 col-lg-2">
-                    <button type="button" class="btn btn-primary" id="koreksi-button" disabled>Koreksi</button>
-                    <button type="button" class="btn btn-secondary" id="refresh-button">Refresh</button>
-                </div>
-                <div class="col-lg-2">
-                    Jumlah Proses
-                </div>
-                <div class="col-lg-5" id="paket-selector">
-                    <input type="number" id="jumlah_proses" name="jumlah_proses" min="1" max="4" value="4">
-                </div>
-                <div class="offset-lg-3 col-lg-2">
-                    <button type="button" class="btn btn-warning" id="log-button">Lihat Log</button>
-                </div>
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-lg-2">
+                Paket Ujian
             </div>
-
+            <div class="col-lg-5" id="paket-selector">
+                <select class="form-select" aria-label="Default select example" id="select-paket">
+                    <option selected disabled>Pilih ujian</option>
+                </select>
+            </div>
+            <div class="offset-lg-3 col-lg-2">
+                <button type="button" class="btn btn-primary" id="koreksi-button" disabled>Koreksi</button>
+                <button type="button" class="btn btn-secondary" id="refresh-button">Refresh</button>
+            </div>
+            <div class="col-lg-2">
+                Jumlah Proses
+            </div>
+            <div class="col-lg-5" id="paket-selector">
+                <input type="number" id="jumlah_proses" name="jumlah_proses" min="1" max="4" value="4">
+            </div>
+            <div class="offset-lg-3 col-lg-2">
+                <button type="button" class="btn btn-warning" id="log-button">Lihat Log</button>
+            </div>
         </div>
-    </div>
 
-    <div class="alert alert-primary" role="alert" id="koreksi-alert" style="display:none">
-        alert koreksi
     </div>
+</div>
 
-    <div class="alert alert-danger" role="alert" id="koreksi-alert-red" style="display:none">
-        alert gagal
-    </div>
+<div class="alert alert-primary" role="alert" id="koreksi-alert" style="display:none">
+    alert koreksi
+</div>
 
-    <table class="table table-dark" id ="ujian_siswa_table">
-        <thead>
-          <tr>
+<div class="alert alert-danger" role="alert" id="koreksi-alert-red" style="display:none">
+    alert gagal
+</div>
+
+<table class="table table-dark" id="ujian_siswa_table">
+    <thead>
+        <tr>
             <th scope="col">NISN</th>
             <th scope="col">Nama Siswa</th>
             <th scope="col">Sekolah</th>
@@ -56,10 +56,10 @@
             <th scope="col">Nilai</th>
             <th scope="col">Predikat</th>
             <th scope="col">Status Koreksi</th>
-          </tr>
-        </thead>
-        <tbody>
-          {{-- <tr>
+        </tr>
+    </thead>
+    <tbody>
+        {{-- <tr>
             <th scope="row">14045</th>
             <td>Rafi Nizar</td>
             <td>SMA INTI</td>
@@ -69,21 +69,21 @@
             <td>SELESAI DIKOREKSI</td>
           </tr> --}}
 
-        </tbody>
-      </table>
+    </tbody>
+</table>
 @stop
 
 @section('css')
-    {{-- <link rel="stylesheet" href="/css/admin_custom.css"> --}}
+{{-- <link rel="stylesheet" href="/css/admin_custom.css"> --}}
 @stop
 
 @section('js')
 
-    <script src="{{ asset('js/components/load-siswa.js')}}"></script>
-    <script src="{{ asset('js/components/ujian-siswa-table-loader.js')}}"></script>
+<script src="{{ asset('js/components/load-siswa.js')}}"></script>
+<script src="{{ asset('js/components/ujian-siswa-table-loader.js')}}"></script>
 
-    <script>
-    $(document).ready( function () {
+<script>
+    $(document).ready(function () {
 
         var tableUjian = $('#ujian_siswa_table').DataTable({
             language: {
@@ -95,13 +95,21 @@
             responsive: true,
             retrieve: true,
             data: {},
-            columns: [
-                { data: 'nisn' },
-                { data: 'nama_siswa' },
-                { data: 'nama_sekolah' },
-                { data: 'jurusan' },
-                { data: 'jumlah_benar',
-                    render: function ( data, type, row ) {
+            columns: [{
+                    data: 'nisn'
+                },
+                {
+                    data: 'nama_siswa'
+                },
+                {
+                    data: 'nama_sekolah'
+                },
+                {
+                    data: 'jurusan'
+                },
+                {
+                    data: 'jumlah_benar',
+                    render: function (data, type, row) {
                         var nilai = parseInt(data)
                         if (nilai == -2 || nilai == '-2') {
                             nilai = '-'
@@ -109,16 +117,19 @@
                         return nilai;
                     }
                 },
-                { data: 'predikat',
+                {
+                    data: 'predikat',
                     render: function (data, type, row) {
                         var nilai = parseInt(row.jumlah_benar)
                         if (nilai == -2 || nilai == '-2') {
                             return '-'
                         }
                         return data;
-                    }},
-                { data: 'jumlah_benar',
-                    render: function ( data, type, row ) {
+                    }
+                },
+                {
+                    data: 'jumlah_benar',
+                    render: function (data, type, row) {
                         var nilai = 'SUDAH DIKOREKSI'
                         if (parseInt(data) == -2) {
                             nilai = 'BELUM DIKOREKSI'
@@ -133,7 +144,7 @@
             type: 'GET',
             contentType: "application/json",
             dataType: "json",
-            url: base_url+ '/api/is-any-onprogress',
+            url: base_url + '/api/is-any-onprogress',
             success: async (data) => {
 
                 // tableUjian.clear()
@@ -181,6 +192,12 @@
                 var existsEl = []
                 var existsElNama = []
 
+                var q_match = false
+                const params = new Proxy(new URLSearchParams(window.location.search), {
+                    get: (searchParams, prop) => searchParams.get(prop)
+                })
+                let q_ujian = params.jadwal_ujian_id
+
                 ujian.forEach(el => {
                     if (existsEl.includes(el.jadwal_ujian_id)) {
                         return
@@ -203,14 +220,31 @@
                     option.value = el.jadwal_ujian_id
                     option.innerHTML = el.deskripsi
                     $('#select-paket').append(option);
+
+                    if (q_ujian == el.jadwal_ujian_id) q_match=true
                 })
+
+                 // get data if query string exists
+
+                    if (!q_match) {
+                        console.log('empty/invalid q string')
+                    } else {
+                        var body = {
+                            "jadwal_ujian_id": q_ujian
+                        }
+
+                        $('#select-paket').val(q_ujian).change()
+                    }
             },
             error: (err) => {
                 console.log(err)
             }
         })
-    } );
-    </script>
+
+
+    });
+
+</script>
 
 
 @stop
