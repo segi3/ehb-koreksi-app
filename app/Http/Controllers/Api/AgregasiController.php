@@ -32,14 +32,14 @@ class AgregasiController extends Controller
     public function ShowAgregasiRayon($kd_rayon) {
         if ($kd_rayon == 'semua') {
             $agg = DB::table('ujian_siswa')
-                ->selectRaw('avg(jumlah_benar)/JSON_LENGTH(random_soal)*100 as avg, min(jumlah_benar)/JSON_LENGTH(random_soal)*100 as min, max(jumlah_benar)/JSON_LENGTH(random_soal)*100 as max, paket.nama, rayon_nama')
+                ->selectRaw('avg(cast(jumlah_benar as SIGNED))/JSON_LENGTH(random_soal)*100 as avg, min(cast(jumlah_benar as SIGNED))/JSON_LENGTH(random_soal)*100 as min, max(cast(jumlah_benar as SIGNED))/JSON_LENGTH(random_soal)*100 as max, paket.nama, rayon_nama')
                 ->join('paket', 'paket.id', 'ujian_siswa.paket_id')
                 ->where('rayon_nama', '!=', 'null')
                 ->groupBy('rayon_kd', 'paket_id')
                 ->get();
         } else {
             $agg = DB::table('ujian_siswa')
-                ->selectRaw('avg(jumlah_benar)/JSON_LENGTH(random_soal)*100 as avg, min(jumlah_benar)/JSON_LENGTH(random_soal)*100 as min, max(jumlah_benar)/JSON_LENGTH(random_soal)*100 as max, paket.nama, rayon_nama')
+                ->selectRaw('avg(cast(jumlah_benar as SIGNED))/JSON_LENGTH(random_soal)*100 as avg, min(cast(jumlah_benar as SIGNED))/JSON_LENGTH(random_soal)*100 as min, max(cast(jumlah_benar as SIGNED))/JSON_LENGTH(random_soal)*100 as max, paket.nama, rayon_nama')
                 ->join('paket', 'paket.id', 'ujian_siswa.paket_id')
                 ->where('rayon_nama', '!=', 'null')
                 ->where('rayon_kd', $kd_rayon)
@@ -52,7 +52,7 @@ class AgregasiController extends Controller
 
     public function ShowAgregasiRayonNoKD() {
         $agg = DB::table('ujian_siswa')
-            ->selectRaw('avg(jumlah_benar)/JSON_LENGTH(random_soal)*100 as avg, min(jumlah_benar)/JSON_LENGTH(random_soal)*100 as min, max(jumlah_benar)/JSON_LENGTH(random_soal)*100 as max, paket.nama, rayon_nama')
+            ->selectRaw('avg(cast(jumlah_benar as SIGNED))/JSON_LENGTH(random_soal)*100 as avg, min(cast(jumlah_benar as SIGNED))/JSON_LENGTH(random_soal)*100 as min, max(cast(jumlah_benar as SIGNED))/JSON_LENGTH(random_soal)*100 as max, paket.nama, rayon_nama')
             ->join('paket', 'paket.id', 'ujian_siswa.paket_id')
             ->where('rayon_nama', '!=', 'null')
             ->groupBy('paket_id')
@@ -64,7 +64,7 @@ class AgregasiController extends Controller
     public function ShowAgregasiSekolah($rayon_kd, $sekolah_id) {
         if ($sekolah_id == 'semua') {
             $agg = DB::table('ujian_siswa')
-                ->selectRaw('sekolah_nama, sekolah_id, avg(jumlah_benar)/JSON_LENGTH(random_soal)*100 as avg, min(jumlah_benar)/JSON_LENGTH(random_soal)*100 as min, max(jumlah_benar)/JSON_LENGTH(random_soal)*100 as max, paket.nama, rayon_nama')
+                ->selectRaw('sekolah_nama, sekolah_id, avg(cast(jumlah_benar as SIGNED))/JSON_LENGTH(random_soal)*100 as avg, min(cast(jumlah_benar as SIGNED))/JSON_LENGTH(random_soal)*100 as min, max(cast(jumlah_benar as SIGNED))/JSON_LENGTH(random_soal)*100 as max, paket.nama, rayon_nama')
                 ->join('paket', 'paket.id', 'ujian_siswa.paket_id')
                 ->where('rayon_nama', '!=', 'null')
                 ->where('rayon_kd', $rayon_kd)
@@ -72,7 +72,7 @@ class AgregasiController extends Controller
                 ->get();
         } else {
             $agg = DB::table('ujian_siswa')
-                ->selectRaw('sekolah_nama, sekolah_id, avg(jumlah_benar)/JSON_LENGTH(random_soal)*100 as avg, min(jumlah_benar)/JSON_LENGTH(random_soal)*100 as min, max(jumlah_benar)/JSON_LENGTH(random_soal)*100 as max, paket.nama, rayon_nama')
+                ->selectRaw('sekolah_nama, sekolah_id, avg(cast(jumlah_benar as SIGNED))/JSON_LENGTH(random_soal)*100 as avg, min(cast(jumlah_benar as SIGNED))/JSON_LENGTH(random_soal)*100 as min, max(cast(jumlah_benar as SIGNED))/JSON_LENGTH(random_soal)*100 as max, paket.nama, rayon_nama')
                 ->join('paket', 'paket.id', 'ujian_siswa.paket_id')
                 ->where('rayon_nama', '!=', 'null')
                 ->where('rayon_kd', $rayon_kd)
@@ -86,7 +86,7 @@ class AgregasiController extends Controller
 
     public function ShowAgregasiSekolahNoKd($rayon_kd) {
         $agg = DB::table('ujian_siswa')
-            ->selectRaw('sekolah_nama, sekolah_id, avg(jumlah_benar)/JSON_LENGTH(random_soal)*100 as avg, min(jumlah_benar)/JSON_LENGTH(random_soal)*100 as min, max(jumlah_benar)/JSON_LENGTH(random_soal)*100 as max, paket.nama, rayon_nama')
+            ->selectRaw('sekolah_nama, sekolah_id, avg(cast(jumlah_benar as SIGNED))/JSON_LENGTH(random_soal)*100 as avg, min(cast(jumlah_benar as SIGNED))/JSON_LENGTH(random_soal)*100 as min, max(cast(jumlah_benar as SIGNED))/JSON_LENGTH(random_soal)*100 as max, paket.nama, rayon_nama')
             ->join('paket', 'paket.id', 'ujian_siswa.paket_id')
             ->where('rayon_nama', '!=', 'null')
             ->where('rayon_kd', $rayon_kd)
