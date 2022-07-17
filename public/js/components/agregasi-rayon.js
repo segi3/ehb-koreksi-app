@@ -143,15 +143,30 @@ const PrepareStackedBarData = (data) => {
         return a.nama.localeCompare(b.nama)
     })
 
+    // console.log(data)
+
     var min = []
     var mean = []
     var max = []
     var label = []
 
     data.forEach(el => {
-        min.push(el.min)
-        max.push(el.max)
-        mean.push(el.avg)
+
+        // negative check
+        let mmin = el.min < 0 ? 0 : el.min
+        let mmean = el.avg < 0 ? 0 : el.avg
+        let mmax = el.max < 0 ? 0 : el.max
+
+        // initial
+        // min.push(mmin)
+        // mean.push(mmean)
+        // max.push(mmax)
+        // label.push(el.nama)
+
+        // new (using differences betweet datasets)
+        min.push(mmin)
+        mean.push(mmean-mmin)
+        max.push(mmax-mmean)
         label.push(el.nama)
     })
 
@@ -161,6 +176,8 @@ const PrepareStackedBarData = (data) => {
         mean: mean,
         label: label
     }
+
+    // console.log(res)
 
     return res
 }

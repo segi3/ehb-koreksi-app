@@ -232,6 +232,35 @@ const NewStackedAgregasiBar = (min, mean, max, label) => {
         data: data,
         options: {
             plugins: {
+                 tooltip: {
+                    displayColors: false,
+                    callbacks: {
+                        label: (context) => {
+
+                            let nmin = parseFloat(min[context.dataIndex])
+                            let nmean = parseFloat(mean[context.dataIndex]) + parseFloat(min[context.dataIndex])
+                            let nmax = parseFloat(max[context.dataIndex]) + parseFloat(mean[context.dataIndex]) + parseFloat(min[context.dataIndex])
+
+                            // console.log({label: labels[context.dataIndex],
+                            //     min: parseFloat(min[context.dataIndex]),
+                            //     mean: parseFloat(mean[context.dataIndex]) + parseFloat(min[context.dataIndex]),
+                            //     max: parseFloat(max[context.dataIndex]) + parseFloat(mean[context.dataIndex]) + parseFloat(min[context.dataIndex])})
+
+                            let label = context.dataset.label || '';
+                            if (label) {
+                                label += ': ';
+                            }
+                            if (context.parsed.y !== null) {
+                                label += new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(context.parsed.y);
+                            }
+                            return [
+                                'Tertinggi: ' + nmax,
+                                'Terendah: ' + nmin,
+                                'Rata-rata: ' + nmean
+                            ]
+                        }
+                    }
+                },
                 title: {
                     display: true,
                     text: 'Agregasi Hasil Ujian'
