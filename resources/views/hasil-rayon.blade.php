@@ -39,7 +39,7 @@
         <div class="card">
             <div class="card-body row">
                 <div class="col-lg-12" id="chart-container">
-                    <canvas id="agregasichart"></canvas>
+                    <canvas id="agregasichart" ></canvas>
                 </div>
             </div>
         </div>

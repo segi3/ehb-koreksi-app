@@ -205,7 +205,9 @@ const NewStackedAgregasiBar = (min, mean, max, label) => {
 
     $('#graph-container').show()
     console.log('creating graph')
-    const ctx = document.getElementById('agregasichart').getContext('2d');
+    const ctx = document.getElementById('agregasichart').getContext('2d')
+    const h = $('#agregasichart')
+    h.height(440)
 
     const labels = label;
     const data = {
@@ -231,6 +233,7 @@ const NewStackedAgregasiBar = (min, mean, max, label) => {
         type: 'bar',
         data: data,
         options: {
+            maintainAspectRatio: false,
             plugins: {
                  tooltip: {
                     displayColors: false,
