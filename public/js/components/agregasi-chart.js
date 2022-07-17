@@ -90,6 +90,8 @@ function ResetChartCanvas() {
 function NewAverageChart(labels, data) {
     ResetChartCanvas()
     const ctx = document.getElementById('agregasichart').getContext('2d');
+    const h = $('#agregasichart')
+    h.height(440)
     const config = {
         type: 'bar',
         data: {
@@ -107,6 +109,7 @@ function NewAverageChart(labels, data) {
             }]
         },
         options: {
+            maintainAspectRatio: false,
             scales: {
                 y: {
                     beginAtZero: true
@@ -143,6 +146,8 @@ function NewPredikatChart(labels, data) {
     $('#graph-container').show()
     ResetPieCanvas()
     const ctx = document.getElementById('piechart').getContext('2d');
+    const h = $('#piechart')
+    h.height(440)
     const config = {
         type: 'pie',
         data: {
@@ -161,6 +166,7 @@ function NewPredikatChart(labels, data) {
             }]
         },
         options: {
+            maintainAspectRatio: false,
             plugins: {
                 title: {
                     display: true,
