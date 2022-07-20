@@ -8,8 +8,8 @@ $('#sekolah-selector').on('change', function () {
 
     console.log(selected_sekolah)
 
+    $('#loading-alert').show()
     GetHasilAgregasi(selected_sekolah)
-
 });
 
 $('#download-button').on('click', () => {
@@ -98,6 +98,7 @@ const UpdateTable = async (selected_sekolah) => {
             if (selected_sekolah != 'semua') { // karena semua di grup by rayon
                 const res = PrepareStackedBarData(data.data)
                 NewStackedAgregasiBar(res.min, res.mean, res.max, res.label)
+                $('#loading-alert').hide()
             } else {
                 $.ajax({
                     type: 'GET',
@@ -109,6 +110,7 @@ const UpdateTable = async (selected_sekolah) => {
 
                         const res = PrepareStackedBarData(data.data)
                         NewStackedAgregasiBar(res.min, res.mean, res.max, res.label)
+                        $('#loading-alert').hide()
                     },
                     error: (err) => {
                         console.log(err)

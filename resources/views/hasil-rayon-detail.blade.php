@@ -34,6 +34,9 @@
     <div class="alert alert-primary" role="alert" id="agregasi-alert" style="display:none">
         alert agregasi
     </div>
+    <div class="alert alert-primary" role="alert" id="loading-alert" style="display:none">
+        Loading
+    </div>
 
     <div id="graph-container">
         <div class="card">
@@ -113,6 +116,7 @@
             ]
         })
 
+        $('#loading-alert').show()
         // init data, semua rayon
         $.ajax({
             type: 'GET',
@@ -126,6 +130,7 @@
                 if (selected_sekolah != 'semua') { // karena semua di grup by rayon
                     const res = PrepareStackedBarData(data.data)
                     NewStackedAgregasiBar(res.min, res.mean, res.max, res.label)
+                    $('#loading-alert').hide()
                 } else {
                     $.ajax({
                         type: 'GET',
@@ -137,6 +142,7 @@
 
                             const res = PrepareStackedBarData(data.data)
                             NewStackedAgregasiBar(res.min, res.mean, res.max, res.label)
+                            $('#loading-alert').hide()
                         },
                         error: (err) => {
                             console.log(err)

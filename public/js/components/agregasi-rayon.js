@@ -18,7 +18,7 @@ $('#rayon-selector').on('change', function () {
         $('#rayon-detail-button').attr('href', base_url + '/agregasi-hasil/rayon/' + selected_kd_rayon);
     }
 
-
+    $('#loading-alert').show()
     GetHasilAgregasi(selected_kd_rayon)
 });
 
@@ -112,6 +112,7 @@ const UpdateTable = async (selected_kd_rayon) => {
             if (selected_kd_rayon != 'semua') { // karena semua di grup by rayon
                 const res = PrepareStackedBarData(data.data)
                 NewStackedAgregasiBar(res.min, res.mean, res.max, res.label)
+                $('#loading-alert').hide()
             } else {
                 $.ajax({
                     type: 'GET',
@@ -123,6 +124,7 @@ const UpdateTable = async (selected_kd_rayon) => {
 
                         const res = PrepareStackedBarData(data.data)
                         NewStackedAgregasiBar(res.min, res.mean, res.max, res.label)
+                        $('#loading-alert').hide()
                     },
                     error: (err) => {
                         console.log(err)
