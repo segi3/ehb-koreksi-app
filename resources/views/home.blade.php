@@ -198,7 +198,7 @@
                             thousands(el.not_done) +
                             '</div>' +
                             '<div class="col-lg-2 d-flex justify-content-end">' +
-                            '<a class="btn btn-secondary" href="http://127.0.0.1:8000/koreksi?jadwal_ujian_id='+el.jadwal_ujian_id+'">Koreksi</a>' +
+                            '<a class="btn btn-secondary" href="'+base_url+'/koreksi?jadwal_ujian_id='+el.jadwal_ujian_id+'">Koreksi</a>' +
                             '</div>' +
                             '</div>'
                         );
@@ -243,7 +243,7 @@
                             thousands(el.not_done) +
                             '</div>' +
                             '<div class="col-lg-2 d-flex justify-content-end">' +
-                            '<a class="btn btn-secondary" href="http://127.0.0.1:8000/koreksi?jadwal_ujian_id='+el.jadwal_ujian_id+'">Koreksi</a>' +
+                            '<a class="btn btn-secondary" href="'+base_url+'/koreksi?jadwal_ujian_id='+el.jadwal_ujian_id+'">Koreksi</a>' +
                             '</div>' +
                             '</div>'
                         );
@@ -288,7 +288,7 @@
                             thousands(el.not_done) +
                             '</div>' +
                             '<div class="col-lg-2 d-flex justify-content-end">' +
-                            '<a class="btn btn-secondary" href="http://127.0.0.1:8000/koreksi?jadwal_ujian_id='+el.jadwal_ujian_id+'">Koreksi</a>' +
+                            '<a class="btn btn-secondary" href="'+base_url+'/koreksi?jadwal_ujian_id='+el.jadwal_ujian_id+'">Koreksi</a>' +
                             '</div>' +
                             '</div>'
                         );
@@ -333,7 +333,7 @@
                             thousands(el.not_done) +
                             '</div>' +
                             '<div class="col-lg-2 d-flex justify-content-end">' +
-                            '<a class="btn btn-secondary" href="http://127.0.0.1:8000/koreksi?jadwal_ujian_id='+el.jadwal_ujian_id+'">Koreksi</a>' +
+                            '<a class="btn btn-secondary" href="'+base_url+'/koreksi?jadwal_ujian_id='+el.jadwal_ujian_id+'">Koreksi</a>' +
 
                             '</div>' +
                             '</div>'
@@ -406,7 +406,7 @@
                             thousands(el.not_done) +
                             '</div>' +
                             '<div class="col-lg-2 d-flex justify-content-end">' +
-                            '<a class="btn btn-secondary" href="http://127.0.0.1:8000/koreksi?jadwal_ujian_id='+el.jadwal_ujian_id+'">Koreksi</a>' +
+                            '<a class="btn btn-secondary" href="'+base_url+'/koreksi?jadwal_ujian_id='+el.jadwal_ujian_id+'">Koreksi</a>' +
                             '</div>' +
                             '</div>'
                         );
@@ -452,7 +452,7 @@
                             thousands(el.not_done) +
                             '</div>' +
                             '<div class="col-lg-2 d-flex justify-content-end">' +
-                            '<a class="btn btn-secondary" href="http://127.0.0.1:8000/koreksi?jadwal_ujian_id='+el.jadwal_ujian_id+'">Koreksi</a>' +
+                            '<a class="btn btn-secondary" href="'+base_url+'/koreksi?jadwal_ujian_id='+el.jadwal_ujian_id+'">Koreksi</a>' +
                             '</div>' +
                             '</div>'
                         );
@@ -496,7 +496,7 @@
                             thousands(el.not_done) +
                             '</div>' +
                             '<div class="col-lg-2 d-flex justify-content-end">' +
-                            '<a class="btn btn-secondary" href="http://127.0.0.1:8000/koreksi?jadwal_ujian_id='+el.jadwal_ujian_id+'">Koreksi</a>' +
+                            '<a class="btn btn-secondary" href="'+base_url+'/koreksi?jadwal_ujian_id='+el.jadwal_ujian_id+'">Koreksi</a>' +
                             '</div>' +
                             '</div>'
                         );
@@ -540,7 +540,7 @@
                             thousands(el.not_done) +
                             '</div>' +
                             '<div class="col-lg-2 d-flex justify-content-end">' +
-                            '<a class="btn btn-secondary" href="http://127.0.0.1:8000/koreksi?jadwal_ujian_id='+el.jadwal_ujian_id+'">Koreksi</a>' +
+                            '<a class="btn btn-secondary" href="'+base_url+'/koreksi?jadwal_ujian_id='+el.jadwal_ujian_id+'">Koreksi</a>' +
                             '</div>' +
                             '</div>'
                         );
